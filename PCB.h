@@ -9,6 +9,10 @@ typedef struct  {
     int memoryLowerBoundary;
     int memoryUpperBoundary;
 }PCB;
+typedef struct {
+    char *name;
+    char *value;
+}Pair;
 
 void initPCB( PCB *pcb) {
     pcb->processID = processID;
@@ -18,5 +22,6 @@ void initPCB( PCB *pcb) {
     pcb->memoryLowerBoundary = 0;
     pcb->memoryUpperBoundary = 0;
 }
+
 
 #endif //MSTWOOS_PCB_H
