@@ -1,0 +1,20 @@
+MUTEX:
+- Read/Write file (writeFile, readFile)
+- User input (input)
+- outputting to screen (print, printFromTo)
+- Lock/Unlock resource (semWait, semSignal)
+Memory:
+- Store PCB (name, value)
+- Variables can be string or int
+- Lines of code (i.e. Instruction 1: assign a input)
+- Memory cells are all composed of the same data structure (Pair: name, value)
+Ideas for scheduling:
+- for scheduling processes for resources, Iterate over the queue and remove the highest by keeping track of the address of the max and prev.
+Queue:
+- Array or linkedList?
+- size of process in memory with code = 6 (PCB) + 7(lines of code) + 3 (variables) = 16 memory cells
+- size of process without code = 9 memory cells
+- max num of processes with code = 60/16 = 3.75 ~ 4 processes
+- max num of processes without code = 60/9 =~ 7 processes
+Code interpreter:
+
