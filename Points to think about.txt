@@ -4,8 +4,8 @@ MUTEX:
 - outputting to screen (print, printFromTo)
 - Lock/Unlock resource (semWait, semSignal)
 Memory:
-- Variables can be string or int
 - Store PCB (name, value)
+- Variables can be string or int
 - Lines of code (i.e. Instruction 1: assign a input)
 - Memory cells are all composed of the same data structure (Pair: name, value)
 Ideas for scheduling:
