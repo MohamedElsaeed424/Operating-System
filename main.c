@@ -46,6 +46,7 @@ enum state execute(Process *process){
 
         token = strtok(NULL, " ");
         char value[100];
+//        memset(value,0, sizeof(value));
         // if input
         if(strcmp(token, "input") == 0){
             printf("Please enter a value:\n");
@@ -60,14 +61,19 @@ enum state execute(Process *process){
                 return Failed;
             }
             FILE* file = fopen(memory->words[pathIdx].value, "r");
-            fread(value, sizeof(value), 1, file);
+            if(file == NULL){
+                printf("File not Found\n");
+                return Failed;
+            }
+            size_t size = fread(value, 1, sizeof(value), file);
+            value[size] = '\0';
             fclose(file);
         }
         else{
         // if variable in memory
             int valueIdx = findVar(memory, token, lowerBound + TO_VAR);
             if(valueIdx == -1){
-                printf("Unknown Variable name %s", token);
+                printf("Unknown Variable name %s\n", token);
                 return Failed;
             }
             strcpy(value, memory->words[valueIdx].value);
@@ -79,7 +85,7 @@ enum state execute(Process *process){
         token = strtok(NULL, " ");
         int pathIdx = findVar(memory, token, lowerBound+TO_VAR);
         if(pathIdx == -1){
-            printf("Unknown Variable name %s", token);
+            printf("Unknown Variable name %s\n", token);
             return Failed;
         }
 
@@ -88,7 +94,7 @@ enum state execute(Process *process){
         token = strtok(NULL, " ");
         int valIdx = findVar(memory, token, lowerBound+TO_VAR);
         if(valIdx == -1){
-            printf("Unknown Variable name %s", token);
+            printf("Unknown Variable name %s\n", token);
             return Failed;
         }
         fprintf(file, "%s", memory->words[valIdx].value);
@@ -197,6 +203,6 @@ enum state print(char* token, int lowerBound){
         printf("Unknown Variable name %s", token);
         return Failed;
     }
-    printf("%s", memory->words[varIdx].value);
+    printf("%s\n", memory->words[varIdx].value);
     return Success;
 }
