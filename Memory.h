@@ -28,12 +28,13 @@ int findVar(Memory *mem, const char* name, int varIdx){
     }
     return -1;
 }
-int findEmptyVar(Memory *mem, const char* name, int varIdx){
+int allocVar(Memory *mem, const char* name, int varIdx){
     for(int i = 0; i<3; i++){
-        if(strlen(name) == 0)
+        if(strlen(mem->words[varIdx+i].name) == 0){
+            strcpy(mem->words[varIdx+i].name, name);
             return varIdx+i;
+        }
     }
-    return -1;
 }
 
 

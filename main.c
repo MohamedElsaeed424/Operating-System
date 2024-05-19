@@ -41,9 +41,9 @@ enum state execute(Process *process){
 
         int varIdx = findVar(memory, token, lowerBound+TO_VAR);
         if(varIdx == -1){
-            varIdx = findEmptyVar(memory, token, lowerBound + TO_VAR);
+            varIdx = allocVar(memory, token, lowerBound + TO_VAR);
         }
-        strcpy(memory->words[varIdx].name, token);
+
         token = strtok(NULL, " ");
         char value[100];
         // if input
@@ -51,8 +51,8 @@ enum state execute(Process *process){
             printf("Please enter a value:\n");
             scanf("%s", value);
         }
-        // if reading file
         else if(strcmp(token, "readFile") == 0){
+        // if reading file
             token = strtok(NULL, " ");
             int pathIdx = findVar(memory, token, lowerBound + TO_VAR);
             if(pathIdx == -1){
@@ -63,8 +63,8 @@ enum state execute(Process *process){
             fread(value, sizeof(value), 1, file);
             fclose(file);
         }
-        // if variable in memory
         else{
+        // if variable in memory
             int valueIdx = findVar(memory, token, lowerBound + TO_VAR);
             if(valueIdx == -1){
                 printf("Unknown Variable name %s", token);
@@ -95,6 +95,7 @@ enum state execute(Process *process){
         fclose(file);
     }
     else if(strcmp(token, "printFromTo") == 0){
+        token = strtok(NULL, " ");
         int lower = findVar(memory, token, lowerBound+TO_VAR);
         if(lower == -1){
             printf("Unknown Variable name %s", token);
@@ -102,6 +103,7 @@ enum state execute(Process *process){
         }
         lower = atoi(memory->words[lower].value);
 
+        token = strtok(NULL, " ");
         int upper = findVar(memory, token, lowerBound+TO_VAR);
         if(upper == -1){
             printf("Unknown Variable name %s", token);
@@ -159,11 +161,12 @@ void loadAndExecuteProgram(const char* filePath) {
     addWord(memory, "programCounter", itoaa(pcb->pc));
     addWord(memory, "memoryLowerBoundary", itoaa(pcb->memoryLowerBoundary));
     addWord(memory, "memoryUpperBoundary", itoaa(pcb->memoryUpperBoundary));
-    addWord(memory , "Var1" ,"0");
-    addWord(memory , "Var2" ,"0");
-    addWord(memory , "Var3" ,"0");
+    addWord(memory , "" ,"0");
+    addWord(memory , "" ,"0");
+    addWord(memory , "" ,"0");
     loadProgramFile(memory,memory->count, filePath);
-//    execute(process);
+    while(process->pcb->pc <= process->pcb->memoryUpperBoundary)
+        execute(process);
     free(pcb);
 }
 
