@@ -25,20 +25,14 @@ void init_mutex(MUTEX *mutex) {
     mutex->ownerID = -1;  // No owner initially
 }
 
-int isQueueEmpty(LockQueue* queues) {
+int isLockQueueEmpty(LockQueue* queues) {
     return queues->rear == -1;
 }
-int isQueueFull(LockQueue* queues) {
+int isLockQueueFull(LockQueue* queues) {
     return queues->rear+1 == queues->capacity;
 }
-void enqueue(LockQueue *queue, Process * process) {
-//    if (queue->rear == 2) {
-//        queue->rear = -1;
-//    }
-//    if (queue->front == -1)
-//        queue->front = 0;
-//    queue->queue[++queue->rear] = process;
-    if(isQueueFull(queue)){
+void enqueueLock(LockQueue *queue, Process * process) {
+    if(isLockQueueFull(queue)){
         printf("Queue is Full\n");
         return;
     }
@@ -46,20 +40,7 @@ void enqueue(LockQueue *queue, Process * process) {
 
 }
 
-Process* dequeue(LockQueue *queue) {
-//    if (queue->front == -1) {
-//        printf("Queue is empty\n");
-//        return NULL;
-//    }
-//    if (queue->front == 3) {
-//        queue->front = -1;
-//    }
-//    Process *process = &queue->queue[queue->front];
-//    if (queue->front == queue->rear)
-//        queue->front = queue->rear = -1;
-//    else
-//        queue->front++;
-//    return process;
+Process* dequeueLock(LockQueue *queue) {
     int highest = 5;
     int highi = 0;
     for(int i = 0; i < queue->rear; i++){
@@ -80,15 +61,15 @@ void semWait(MUTEX *m , Process * p ) {
         m->ownerID = p->pcb->processID;
         m->value = zero;
     } else {
-        enqueue(&m->queue,p);
+        enqueueLock(&m->queue,p);
     }
 }
 void semSignal(MUTEX *m , Process * p) {
     if(m->ownerID == p->pcb->processID){
-        if (isQueueEmpty(&m->queue))
+        if (isLockQueueEmpty(&m->queue))
             m->value = one;
         else {
-            Process * proc = dequeue(&m->queue);
+            Process * proc = dequeueLock(&m->queue);
             m->ownerID = proc->pcb->processID;
         }
     }

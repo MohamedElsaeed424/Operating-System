@@ -7,6 +7,7 @@
 #include "fileController.h"
 #include "Memory.h"
 #include "Mutex.h"
+#include "Queue.h"
 
 
 #define PCB_VALS 6
@@ -167,6 +168,9 @@ void loadAndExecuteProgram(const char* filePath) {
 
 void init(){
     initMem(&memory);
+    init_mutex(&userInputMutex);
+    init_mutex(&userOutputMutex);
+    init_mutex(&fileMutex);
 }
 
 void terminate(){

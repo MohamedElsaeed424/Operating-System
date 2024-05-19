@@ -7,48 +7,66 @@
 
 // front and rear are indices
 typedef struct {
-    Process queue[MAX_PROCESSES];
+    Process *queue[MAX_PROCESSES];
     int front;
     int rear;
+    int capacity;
     int time_quantum;
 } Queue;
+int isQueueEmpty(Queue* queues) {
+    return queues->rear == -1;
+}
+int isQueueFull(Queue* queues) {
+    return queues->rear+1 == queues->capacity;
+}
+
+void enqueue(Queue *queue, Process * process) {
+    if(isQueueFull(queue)){
+        printf("Queue is Full\n");
+        return;
+    }
+    queue->queue[++queue->rear] = process;
+}
+Process* dequeue(Queue *queue) {
+    Process *process = queue->queue[0];
+    queue->rear--;
+    for(int i = 0; i < queue->rear; i++){
+        queue->queue[i] = queue->queue[i+1];
+    }
+    return process;
+}
 
 Queue queues[LEVELS];
+const int quanta[] = {1, 2, 4, 8};
 
-void initQueue( int quanta[]) {
+void initQueue() {
     for (int i = 0; i < LEVELS; i++) {
-        queues[i].front = -1;
+        queues[i].front = 0;
         queues[i].rear = -1;
         queues[i].time_quantum = quanta[i];
     }
 }
 
-void enqueue(int level, Process process) {
+
+void enqueueML(int level, Process *process) {
+
     if (queues[level].rear == (MAX_PROCESSES - 1)){
         printf("Queue of level %d is full\n", level);
         return;
     }
-    if (queues[level].front == -1)
-        queues[level].front = 0;
-    queues[level].queue[++queues[level].rear] = process;  // increment rear and insert element
+    enqueue(&queues[level], process);
 }
 
-Process* dequeue(int level) {
-    if (queues[level].front == -1)
-        return NULL; // Queue is empty
-    Process *process = &queues[level].queue[queues[level].front]; // get the element at front
-    if (queues[level].front == queues[level].rear) // if there is only one element in queue
-        queues[level].front = queues[level].rear = -1; // reset front and rear to -1
-    else
-        queues[level].front++;
+Process* dequeueML(int level) {
+    if(isQueueEmpty(&queues[level]))
+        return NULL;
+    Process *process = dequeue(&queues[level]);
+
     strcpy(process->pcb->processState, "RUNNING");
     return process;
 }
 
-int isQueueEmpty(int level) {
-    return queues[level].front == -1;
-}
-void MLFQ(int quanta[]) {
+void MLFQ() {
     for (int level = 0; level < LEVELS; level++) {
         if (!isQueueEmpty(level)) {
             Process *p = dequeue(level);
@@ -57,7 +75,7 @@ void MLFQ(int quanta[]) {
             p->remaining_time -= exec_time; // update remaining time for the process
             if (p->remaining_time > 0) { // if process is not finished
                 int next_level = (level == LEVELS - 1) ? level : level + 1;// if reached last level keep .if not move to next lower priority queue
-                enqueue(next_level, *p);
+                enqueue(next_level, p);
             } else {
                 strcpy(p->pcb->processState, "TERMINATED");
             }
