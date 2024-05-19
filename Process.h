@@ -41,6 +41,20 @@ void changeState(PCB* pcb, Memory* memory, char state[]){
     strcpy(pcb->processState, state);
     strcpy(memory->words[pcb->memoryLowerBoundary+lowerBoundary].value, state);
 }
+void incPriority(PCB* pcb, Memory* memory){
+    if(pcb->currentPriority == 4)
+        return;
+    pcb->currentPriority++;
+    char s[20];
+    sprintf(s, "%d", pcb->currentPriority);
+    strcpy(memory->words[pcb->memoryLowerBoundary + priority].value, s);
+}
+void incPC(PCB* pcb, Memory* memory){
+    pcb->pc++;
+    char s[20];
+    sprintf(s, "%d", pcb->pc);
+    strcpy(memory->words[pcb->memoryLowerBoundary + pc].value, s);
+}
 
 
 #endif //MSTWOOS_PCB_H
