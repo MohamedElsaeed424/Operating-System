@@ -15,7 +15,7 @@ typedef struct {
     int ownerID;
 }MUTEX;
 
-enum state {Failed = -1, Good = 0, Blocked = 1};
+enum state {Failed = -1, Success = 0, Blocked = 1};
 
 void init_mutex(MUTEX *mutex) {
     mutex->value = zero;  // Assuming 'zero' means unlocked
@@ -56,10 +56,11 @@ Process* dequeueLock(LockQueue *queue) {
     }
     return process;
 }
-void semWait(MUTEX *m , Process * p ) {
+enum state semWait(MUTEX *m , Process * p ) {
     if (m->value == one) {
         m->ownerID = p->pcb->processID;
         m->value = zero;
+        return Blocked;
     } else {
         enqueueLock(&m->queue,p);
     }

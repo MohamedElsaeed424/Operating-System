@@ -9,12 +9,12 @@
 #include "Mutex.h"
 #include "Queue.h"
 
-
 #define PCB_VALS 6
 #define VAR_VALS 3
 #define TO_CODE 9
 #define TO_VAR 6
 #define CODE_VALS 9
+enum state print(char* token, int lowerBound);
 
 Memory* memory ;
 int processID = 1;
@@ -36,13 +36,7 @@ enum state execute(Process *process){
 
     char* token = strtok(copy, " ");
     if(strcmp(token, "print") == 0){
-        token = strtok(NULL, " ");
-        int varIdx = findVar(memory, token, lowerBound+TO_VAR);
-        if(varIdx == -1){
-            printf("Unknown Variable name %s", token);
-            return Failed;
-        }
-        printf("%s", memory->words[varIdx].value);
+        return print(token, lowerBound);
     }
     else if(strcmp(token, "assign") == 0){
         token = strtok(NULL, " ");
@@ -122,11 +116,11 @@ enum state execute(Process *process){
     else if(strcmp(token, "semWait") == 0){
         token = strtok(NULL, " ");
         if(strcmp(token, "userInput") == 0){
-            semWait(&userInputMutex, process);
+            return semWait(&userInputMutex, process);
         } else if(strcmp(token, "userOutput") == 0)
-            semWait(&userOutputMutex, process);
+            return semWait(&userOutputMutex, process);
         else if(strcmp(token, "file") == 0)
-            semWait(&fileMutex, process);
+            return semWait(&fileMutex, process);
         else{
             printf("Unknown Resource\n");
             return Failed;
@@ -146,7 +140,7 @@ enum state execute(Process *process){
         }
 
     }
-    return 0;
+    return Success;
 }
 
 void loadAndExecuteProgram(const char* filePath) {
@@ -209,4 +203,14 @@ int main() {
 //    printf("----------Memory----------\n");
     printMemory(memory);
     return 0;
+}
+enum state print(char* token, int lowerBound){
+    token = strtok(NULL, " ");
+    int varIdx = findVar(memory, token, lowerBound+TO_VAR);
+    if(varIdx == -1){
+        printf("Unknown Variable name %s", token);
+        return Failed;
+    }
+    printf("%s", memory->words[varIdx].value);
+    return Success;
 }
