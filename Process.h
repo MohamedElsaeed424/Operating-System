@@ -39,7 +39,7 @@ void printPCB(PCB *pcb) {
 }
 void changeState(PCB* pcb, Memory* memory, char state[]){
     strcpy(pcb->processState, state);
-    strcpy(memory->words[pcb->memoryLowerBoundary+lowerBoundary].value, state);
+    strcpy(memory->words[pcb->memoryLowerBoundary+processState].value, state);
 }
 void incPriority(PCB* pcb, Memory* memory){
     if(pcb->currentPriority == 4)

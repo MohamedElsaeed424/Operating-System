@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <pthread.h>
+#include <stdbool.h>
 #include "Process.h"
 #include "fileController.h"
 #include "Memory.h"
@@ -12,11 +12,12 @@
 #define TO_CODE 9
 #define TO_VAR 6
 #define CODE_VALS 9
+
 enum state print(char* token, int lowerBound);
 
 Memory* memory ;
 int processID = 1;
-MUTEX userInputMutex ;
+MUTEX userInputMutex = {1};
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
 
@@ -29,7 +30,9 @@ char* itoaa(int num) {
 enum state execute(Process *process){
     int lowerBound = process->pcb->memoryLowerBoundary;
     char copy[100];
-    strcpy(copy, memory->words[process->pcb->pc++].value);
+    strcpy(copy, memory->words[process->pcb->pc].value);
+    incPC(process->pcb, memory);
+    process->remaining_time--;
 
 
     char* token = strtok(copy, " ");
@@ -132,20 +135,26 @@ enum state execute(Process *process){
             printf("Unknown Resource\n");
             return Failed;
         }
+        // and enqueue into general blocked queue
+
     }
     else if(strcmp(token, "semSignal") == 0){
         token = strtok(NULL, " ");
+        Process *unblocked;
         if(strcmp(token, "userInput") == 0){
-            semSignal(&userInputMutex, process);
+            unblocked = semSignal(&userInputMutex, process);
         } else if(strcmp(token, "userOutput") == 0)
-            semSignal(&userOutputMutex, process);
+            unblocked = semSignal(&userOutputMutex, process);
         else if(strcmp(token, "file") == 0)
-            semSignal(&fileMutex, process);
+            unblocked = semSignal(&fileMutex, process);
         else{
             printf("Unknown Resource\n");
             return Failed;
         }
-
+        if(unblocked != NULL){
+            enqueueML(unblocked->pcb->currentPriority-1, unblocked);
+            // and remove from general blocked queue
+        }
     }
     return Success;
 }
@@ -172,13 +181,15 @@ void loadAndExecuteProgram(const char* filePath) {
     addWord(memory , "" ,"0");
     addWord(memory , "" ,"0");
     loadProgramFile(memory,memory->count, filePath);
-    while(process->pcb->pc <= process->pcb->memoryUpperBoundary)
-        execute(process);
-    free(pcb);
+    enqueueML(0, process);
+//    while(process->pcb->pc <= process->pcb->memoryUpperBoundary)
+//        execute(process);
+//    free(pcb);
 }
 
 void init(){
     initMem(&memory);
+    initQueue();
     init_mutex(&userInputMutex);
     init_mutex(&userOutputMutex);
     init_mutex(&fileMutex);
@@ -187,13 +198,48 @@ void init(){
 void terminate(){
     free(memory);
 }
-
+int clock = 0;
 int main() {
     init();
+    // TODO: Use arrival times
+//    int arrival_time[2];
+//    for(int i = 0; i<3; i++){
+//        printf("Arrival time %d:", i+1);
+//        scanf("%d", &arrival_time[i]);
+//    }
+
     loadAndExecuteProgram("All_Programs/Program_1");
     loadAndExecuteProgram("All_Programs/Program_2");
     loadAndExecuteProgram("All_Programs/Program_3");
+    while(!isAllEmpty()){
+        Process *curr = dequeueML(memory);
+        bool blocked = false;
+        while(curr->remaining_time){
+            int state = execute(curr);
+            if(state == Blocked){
+                blocked = true;
+                break;
+            }
+        }
+        // if process finished free it and don't enqueue
+        if(curr->pcb->pc > curr->pcb->memoryUpperBoundary){
+            free(curr->pcb);
+            free(curr);
+            continue;
+        }
+        // if quantum was finished
+        if(curr->remaining_time <= 0){
+            incPriority(curr->pcb, memory);
+        }
+        // if it is not blocked put it in ready queue
+        // TODO: change state to Ready
+        // TODO: make general blocked queue
+        if(!blocked)
+            enqueueML(curr->pcb->currentPriority-1, curr);
+        // else enqueue in blocked queue
+    }
     printMemory(memory);
+    terminate();
     return 0;
 }
 enum state print(char* token, int lowerBound){

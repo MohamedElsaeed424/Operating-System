@@ -18,7 +18,7 @@ typedef struct {
 enum state {Failed = -1, Success = 0, Blocked = 1};
 
 void init_mutex(MUTEX *mutex) {
-    mutex->value = zero;  // Assuming 'zero' means unlocked
+    mutex->value = one;  // Assuming 'zero' means unlocked. No 'one means unlocked you twat
     mutex->queue.front = 0;
     mutex->queue.rear = -1;
     mutex->queue.capacity = 3;
@@ -50,30 +50,34 @@ Process* dequeueLock(LockQueue *queue) {
         }
     }
     Process *process = queue->queue[highi];
-    queue->rear--;
     for(int i = highi; i < queue->rear; i++){
         queue->queue[i] = queue->queue[i+1];
     }
+    queue->rear--;
     return process;
 }
 enum state semWait(MUTEX *m , Process * p ) {
     if (m->value == one) {
         m->ownerID = p->pcb->processID;
         m->value = zero;
-        return Blocked;
-    } else {
-        enqueueLock(&m->queue,p);
+        return Success;
     }
+    enqueueLock(&m->queue,p);
+    return Blocked;
 }
-void semSignal(MUTEX *m , Process * p) {
+Process *semSignal(MUTEX *m , Process* p) {
     if(m->ownerID == p->pcb->processID){
-        if (isLockQueueEmpty(&m->queue))
+        if (isLockQueueEmpty(&m->queue)){
             m->value = one;
+            return NULL;
+        }
         else {
             Process * proc = dequeueLock(&m->queue);
             m->ownerID = proc->pcb->processID;
+            return proc;
         }
     }
+    return NULL;
 }
 
 
