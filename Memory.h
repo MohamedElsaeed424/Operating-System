@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "PCB.h"
+#include "Process.h"
 
 #define MAX_WORDS 60
 #define MAX_PROGRAM_LINES 100

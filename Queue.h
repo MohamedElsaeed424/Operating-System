@@ -1,6 +1,6 @@
 #ifndef MSTWOOS_QUEUE_H
 #define MSTWOOS_QUEUE_H
-#include "PCB.h"
+#include "Process.h"
 #include <stdlib.h>
 #define LEVELS 4
 #define MAX_PROCESSES 3
@@ -45,7 +45,7 @@ Process* dequeue(int level) {
     return process;
 }
 
-bool isQueueEmpty(int level) {
+int isQueueEmpty(int level) {
     return queues[level].front == -1;
 }
 void MLFQ(int quanta[]) {

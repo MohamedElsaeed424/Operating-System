@@ -22,7 +22,7 @@ void initPCB( PCB *pcb , int processID ,int memoryLowerBoundary, int memoryUpper
     pcb->processID = processID;
     strcpy(pcb->processState, "READY");
     pcb->currentPriority = 1;
-    pcb->programCounter = 0;
+    pcb->pc = 0;
     pcb->memoryLowerBoundary = memoryLowerBoundary;
     pcb->memoryUpperBoundary = memoryUpperBoundary;
 }
@@ -31,7 +31,7 @@ void printPCB(PCB *pcb) {
     printf("Process ID: %d\n", pcb->processID);
     printf("Process State: %s\n", pcb->processState);
     printf("Current Priority: %d\n", pcb->currentPriority);
-    printf("Program Counter: %d\n", pcb->programCounter);
+    printf("Program Counter: %d\n", pcb->pc);
     printf("Memory Lower Boundary: %d\n", pcb->memoryLowerBoundary);
     printf("Memory Upper Boundary: %d\n", pcb->memoryUpperBoundary);
 }

@@ -3,21 +3,25 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include "PCB.h"
+#include "Process.h"
 #include "fileController.h"
 #include "Memory.h"
+#include "Mutex.h"
+
+
 #define PCB_VALS 6
 #define VAR_VALS 3
 #define TO_CODE 9
 #define TO_VAR 6
 #define CODE_VALS 9
+
 enum state {Failed = -1, Good = 0, Blocked = 1};
+
 Memory* memory ;
 int processID = 1;
-
-pthread_mutex_t userInputMutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t userOutputMutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_mutex_t fileMutex = PTHREAD_MUTEX_INITIALIZER;
+MUTEX userInputMutex ;
+MUTEX userOutputMutex ;
+MUTEX fileMutex ;
 
 char* itoa(int num) {
     static char str[12]; // Maximum number of digits for an int
@@ -25,13 +29,6 @@ char* itoa(int num) {
     return str;
 }
 
-void semWait(pthread_mutex_t* mutex) {
-    pthread_mutex_lock(mutex);
-}
-
-void semSignal(pthread_mutex_t* mutex) {
-    pthread_mutex_unlock(mutex);
-}
 enum state execute(int lowerBound){
     int index = lowerBound + TO_CODE;
     char copy[100];
@@ -128,87 +125,12 @@ enum state execute(int lowerBound){
     }
     return 0;
 }
-void executeLine(char** tokens, int* index) {
-    if (strcmp(tokens[*index], "print") == 0) {
-        (*index)++;
-
-        printf("%s\n", tokens[*index]);
-    } else if (strcmp(tokens[*index], "assign") == 0) {
-        (*index)++;
-        char* variable = tokens[*index];
-        (*index)++;
-        if (strcmp(tokens[*index], "input") == 0) {
-//            semWait(&userInputMutex);
-            printf("Please enter a value for %s: ", variable);
-            char inputValue[20];
-            scanf("%s", inputValue);
-//            semSignal(&userInputMutex);
-            addWord(memory, variable, inputValue);
-        } else {
-            addWord(memory, variable, tokens[*index]);
-        }
-    } else if (strcmp(tokens[*index], "writeFile") == 0) {
-        (*index)++;
-        char* filename = tokens[*index];
-        (*index)++;
-        char* data = tokens[*index];
-//        semWait(&fileMutex);
-        FILE* file = fopen(filename, "a");
-        if (file != NULL) {
-            fprintf(file, "%s\n", data);
-            fclose(file);
-        }
-//        semSignal(&fileMutex);
-    } else if (strcmp(tokens[*index], "readFile") == 0) {
-        (*index)++;
-        char* filename = tokens[*index];
-//        semWait(&fileMutex);
-        FILE* file = fopen(filename, "r");
-        if (file != NULL) {
-            char buffer[20];
-            if (fscanf(file, "%s", buffer) != EOF) {
-                printf("Read from file %s: %s\n", filename, buffer);
-                addWord(memory, filename, buffer);
-            }
-            fclose(file);
-        }
-//        semSignal(&fileMutex);
-    } else if (strcmp(tokens[*index], "printFromTo") == 0) {
-        (*index)++;
-        int start = atoi(tokens[*index]);
-        (*index)++;
-        int end = atoi(tokens[*index]);
-        printf("%d",end);
-        for (int i = start; i <= end; i++) {
-            printf("%d ", i);
-        }
-        printf("\n");
-    } else if (strcmp(tokens[*index], "semWait") == 0) {
-        (*index)++;
-        if (strcmp(tokens[*index], "userInput") == 0) {
-            semWait(&userInputMutex);
-        } else if (strcmp(tokens[*index], "userOutput") == 0) {
-            semWait(&userOutputMutex);
-        } else if (strcmp(tokens[*index], "file") == 0) {
-            semWait(&fileMutex);
-        }
-    } else if (strcmp(tokens[*index], "semSignal") == 0) {
-        (*index)++;
-        if (strcmp(tokens[*index], "userInput") == 0) {
-            semSignal(&userInputMutex);
-        } else if (strcmp(tokens[*index], "userOutput") == 0) {
-            semSignal(&userOutputMutex);
-        } else if (strcmp(tokens[*index], "file") == 0) {
-            semSignal(&fileMutex);
-        }
-    }
-}
 
 void interpretProgram(char** tokens, int numTokens) {
     printf("Interpreting the program...\n");
     int i ;
     for (i = 0; i < numTokens; i++) {
-        executeLine(tokens, &i);
+        execute(tokens, &i);
     }
 }
 
@@ -219,16 +141,17 @@ void loadAndExecuteProgram(const char* filePath) {
         printf("Failed to allocate memory for PCB.\n");
         return;
     }
-    int CODESIZE = (filePath == "All_Programs/Program_1" ||filePath == "All_Programs/Program_2") ? 7 : 9 ;    // layethha 👌
+    int CODESIZE = (strcmp(filePath ,"All_Programs/Program_1")==0 || strcmp(filePath, "All_Programs/Program_2")) ? 7 : 9 ;    // layethha 👌
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
-    initPCB(pcb, 0,memory->count ,upperBoundary );
+    initPCB(pcb, processID++,memory->count ,upperBoundary );
     addWord(memory, "processID", itoa(pcb->processID));
     addWord(memory, "processState", pcb->processState);
     addWord(memory, "currentPriority", itoa(pcb->currentPriority));
-    addWord(memory, "programCounter", itoa(pcb->programCounter));
+    addWord(memory, "programCounter", itoa(pcb->pc));
     addWord(memory, "memoryLowerBoundary", itoa(pcb->memoryLowerBoundary));
     addWord(memory, "memoryUpperBoundary", itoa(pcb->memoryUpperBoundary));
     process->pcb = pcb;
+    process->remaining_time = CODESIZE ;
     printf("-------PCB process %d------------------\n" , pcb->processID);
     printPCB(pcb);
     printf("--------------------------\n");
