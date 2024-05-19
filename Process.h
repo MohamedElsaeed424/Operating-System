@@ -2,6 +2,8 @@
 #define MSTWOOS_PCB_H
 #include <string.h>
 #include <stdio.h>
+#include "Memory.h"
+enum offset {ID, processState, priority, pc, lowerBoundary, upperBoundary};
 typedef struct  {
     int processID;
     char processState[10];
@@ -34,6 +36,10 @@ void printPCB(PCB *pcb) {
     printf("Program Counter: %d\n", pcb->pc);
     printf("Memory Lower Boundary: %d\n", pcb->memoryLowerBoundary);
     printf("Memory Upper Boundary: %d\n", pcb->memoryUpperBoundary);
+}
+void changeState(PCB* pcb, Memory* memory, char state[]){
+    strcpy(pcb->processState, state);
+    strcpy(memory->words[pcb->memoryLowerBoundary+lowerBoundary].value, state);
 }
 
 

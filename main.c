@@ -28,7 +28,8 @@ char* itoaa(int num) {
     return str;
 }
 
-enum state execute(int lowerBound){
+enum state execute(Process *process){
+    int lowerBound = process->pcb->memoryLowerBoundary;
     int index = lowerBound + TO_CODE;
     char copy[100];
     strcpy(copy, memory->words[index].value);
@@ -120,6 +121,29 @@ enum state execute(int lowerBound){
     }
     else if(strcmp(token, "semWait") == 0){
         token = strtok(NULL, " ");
+        if(strcmp(token, "userInput") == 0){
+            semWait(&userInputMutex, process);
+        } else if(strcmp(token, "userOutput") == 0)
+            semWait(&userOutputMutex, process);
+        else if(strcmp(token, "file") == 0)
+            semWait(&fileMutex, process);
+        else{
+            printf("Unknown Resource\n");
+            return Failed;
+        }
+    }
+    else if(strcmp(token, "semSignal") == 0){
+        token = strtok(NULL, " ");
+        if(strcmp(token, "userInput") == 0){
+            semSignal(&userInputMutex, process);
+        } else if(strcmp(token, "userOutput") == 0)
+            semSignal(&userOutputMutex, process);
+        else if(strcmp(token, "file") == 0)
+            semSignal(&fileMutex, process);
+        else{
+            printf("Unknown Resource\n");
+            return Failed;
+        }
 
     }
     return 0;
