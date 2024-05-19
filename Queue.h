@@ -59,7 +59,7 @@ void MLFQ(int quanta[]) {
                 int next_level = (level == LEVELS - 1) ? level : level + 1;// if reached last level keep .if not move to next lower priority queue
                 enqueue(next_level, *p);
             } else {
-                process_executed++;
+                strcpy(p->pcb->processState, "TERMINATED");
             }
             break;
         }
