@@ -13,6 +13,18 @@
  * @param filePath
  * @return
  */
+
+int programSize(const char* filePath){
+    FILE* file = fopen(filePath, "r");
+    if (file == NULL) {
+        printf("Failed to open program file.\n");
+        return -1;
+    }
+    char code[LINE_SIZE];
+    int i = 0;
+    while(fgets(code, LINE_SIZE, file)) i++;
+    return i;
+}
 int loadProgramFile(Memory* mem, int start, const char* filePath){
     FILE* file = fopen(filePath, "r");
     if (file == NULL) {

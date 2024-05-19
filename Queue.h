@@ -66,23 +66,4 @@ Process* dequeueML(int level) {
     return process;
 }
 
-void MLFQ() {
-    for (int level = 0; level < LEVELS; level++) {
-        if (!isQueueEmpty(level)) {
-            Process *p = dequeue(level);
-            int exec_time = (p->remaining_time < quanta[level]) ? p->remaining_time : quanta[level]; // execute for time quantum or remaining time
-            // -------------------------------------Execute the process-----------
-            p->remaining_time -= exec_time; // update remaining time for the process
-            if (p->remaining_time > 0) { // if process is not finished
-                int next_level = (level == LEVELS - 1) ? level : level + 1;// if reached last level keep .if not move to next lower priority queue
-                enqueue(next_level, p);
-            } else {
-                strcpy(p->pcb->processState, "TERMINATED");
-            }
-            break;
-        }
-    }
-}
-
-
 #endif //MSTWOOS_QUEUE_H

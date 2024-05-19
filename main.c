@@ -150,37 +150,22 @@ void loadAndExecuteProgram(const char* filePath) {
         printf("Failed to allocate memory for PCB.\n");
         return;
     }
-    int CODESIZE = (strcmp(filePath ,"All_Programs/Program_1")==0 || strcmp(filePath, "All_Programs/Program_2")) ? 7 : 9 ;    // layethha 👌
+    int CODESIZE = programSize(filePath);
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
     initPCB(pcb, processID++,memory->count ,upperBoundary );
+    process->pcb = pcb;
+    process->remaining_time = CODESIZE ;
     addWord(memory, "processID", itoaa(pcb->processID));
     addWord(memory, "processState", pcb->processState);
     addWord(memory, "currentPriority", itoaa(pcb->currentPriority));
     addWord(memory, "programCounter", itoaa(pcb->pc));
     addWord(memory, "memoryLowerBoundary", itoaa(pcb->memoryLowerBoundary));
     addWord(memory, "memoryUpperBoundary", itoaa(pcb->memoryUpperBoundary));
-    process->pcb = pcb;
-    process->remaining_time = CODESIZE ;
-    printf("-------PCB process %d------------------\n" , pcb->processID);
-    printPCB(pcb);
-    printf("--------------------------\n");
-    addWord(memory , "a" , "0");
-    addWord(memory , "b" , "0");
-    addWord(memory , "c" , "0");
-    char* program = readProgramFile(filePath);
-    if (program == NULL) {
-        free(pcb);
-        return;
-    }
-    int numTokens;
-    char** tokens = tokenizeProgram(program, &numTokens);
-    free(program);
-    if (tokens == NULL) {
-        free(pcb);
-        return;
-    }
-    interpretProgram(tokens, numTokens);
-    freeTokens(tokens, numTokens);
+    addWord(memory , "a" ,"0");
+    addWord(memory , "b" ,"0");
+    addWord(memory , "c" ,"0");
+    loadProgramFile(memory,memory->count, filePath);
+    execute(process);
     free(pcb);
 }
 
