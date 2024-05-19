@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "PCB.h"
+
+#define MAX_WORDS 60
+#define MAX_PROGRAM_LINES 100
+#define MAX_VARIABLES 3
+#define PCB_SIZE 6
 
 typedef struct {
     char name[20];
@@ -11,20 +17,19 @@ typedef struct {
 } Word;
 
 typedef struct {
-    Word words[60];
-    int count; //  num of words in memory will help in add and remove
+    Word words[MAX_WORDS];
+    int count;
 } Memory;
 
-Memory *initMem() {
-    Memory *memory = (Memory *)malloc(sizeof(Memory));
-    if (memory != NULL) {
-        memory->count = 0;
-    }
-    return memory;
+
+
+void initMem(Memory **mem){
+    *mem = calloc( 1,sizeof(Memory)) ;
+    (*mem)->count = 0;
 }
 
-void addWord(Memory *memory, char *name, char *value) {
-    if (memory->count < 60) {
+void addWord(Memory* memory, char* name, char* value) {
+    if (memory->count < MAX_WORDS) {
         strncpy(memory->words[memory->count].name, name, 20);
         strncpy(memory->words[memory->count].value, value, 20);
         memory->count++;
@@ -33,7 +38,7 @@ void addWord(Memory *memory, char *name, char *value) {
     }
 }
 
-void removeWord(Memory *memory, char *name) {
+void removeWord(Memory* memory, char* name) {
     int found = 0;
     for (int i = 0; i < memory->count; i++) {
         if (strcmp(memory->words[i].name, name) == 0) {
@@ -50,7 +55,7 @@ void removeWord(Memory *memory, char *name) {
     }
 }
 
-void updateWord(Memory *memory, char *name, char *value) {
+void updateWord(Memory* memory, char* name, char* value) {
     int found = 0;
     for (int i = 0; i < memory->count; i++) {
         if (strcmp(memory->words[i].name, name) == 0) {
@@ -64,12 +69,9 @@ void updateWord(Memory *memory, char *name, char *value) {
     }
 }
 
-void printMemory(Memory *memory) {
+void printMemory(Memory* memory) {
     for (int i = 0; i < memory->count; i++) {
-        printf("Name: %s, Value: %s\n", memory->words[i].name, memory->words[i].value);
+        printf("Location: %d -> %s,%s\n", i ,memory->words[i].name, memory->words[i].value);
     }
 }
-
-
-
 #endif //MSTWOOS_MEMORY_H
