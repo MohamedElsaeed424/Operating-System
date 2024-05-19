@@ -15,8 +15,6 @@
 #define TO_VAR 6
 #define CODE_VALS 9
 
-enum state {Failed = -1, Good = 0, Blocked = 1};
-
 Memory* memory ;
 int processID = 1;
 MUTEX userInputMutex ;
