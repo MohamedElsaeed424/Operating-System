@@ -24,8 +24,8 @@ void initPCB( PCB *pcb , int processID ,int memoryLowerBoundary, int memoryUpper
     pcb->processID = processID;
     strcpy(pcb->processState, "READY");
     pcb->currentPriority = 1;
-    pcb->pc = 0;
     pcb->memoryLowerBoundary = memoryLowerBoundary;
+    pcb->pc = memoryLowerBoundary+9;
     pcb->memoryUpperBoundary = memoryUpperBoundary;
 }
 

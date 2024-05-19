@@ -30,9 +30,9 @@ char* itoaa(int num) {
 
 enum state execute(Process *process){
     int lowerBound = process->pcb->memoryLowerBoundary;
-    int index = lowerBound + TO_CODE;
     char copy[100];
-    strcpy(copy, memory->words[index].value);
+    strcpy(copy, memory->words[process->pcb->pc++].value);
+
 
     char* token = strtok(copy, " ");
     if(strcmp(token, "print") == 0){
