@@ -8,8 +8,10 @@
 #include "Memory.h"
 #define PCB_VALS 6
 #define VAR_VALS 3
+#define TO_CODE 9
+#define TO_VAR 6
 #define CODE_VALS 9
-
+enum state {Failed = -1, Good = 0, Blocked = 1};
 Memory* memory ;
 int processID = 1;
 
@@ -30,10 +32,106 @@ void semWait(pthread_mutex_t* mutex) {
 void semSignal(pthread_mutex_t* mutex) {
     pthread_mutex_unlock(mutex);
 }
+enum state execute(int lowerBound){
+    int index = lowerBound + TO_CODE;
+    char copy[100];
+    strcpy(copy, memory->words[index].value);
 
+    char* token = strtok(copy, " ");
+    if(strcmp(token, "print") == 0){
+        token = strtok(NULL, " ");
+        int varIdx = findVar(memory, token, lowerBound+TO_VAR);
+        if(varIdx == -1){
+            printf("Unknown Variable name %s", token);
+            return Failed;
+        }
+        printf("%s", memory->words[varIdx].value);
+    }
+    else if(strcmp(token, "assign") == 0){
+        token = strtok(NULL, " ");
+
+        int varIdx = findVar(memory, token, lowerBound+TO_VAR);
+        if(varIdx == -1){
+            varIdx = findEmptyVar(memory, token, lowerBound + TO_VAR);
+        }
+        strcpy(memory->words[varIdx].name, token);
+        token = strtok(NULL, " ");
+        char value[100];
+        // if input
+        if(strcmp(token, "input") == 0){
+            printf("Please enter a value:\n");
+            scanf("%s", value);
+        }
+        // if reading file
+        else if(strcmp(token, "readFile") == 0){
+            token = strtok(NULL, " ");
+            int pathIdx = findVar(memory, token, lowerBound + TO_VAR);
+            if(pathIdx == -1){
+                printf("Unknown Variable name %s", token);
+                return Failed;
+            }
+            FILE* file = fopen(memory->words[pathIdx].value, "r");
+            fread(value, sizeof(value), 1, file);
+            fclose(file);
+        }
+        // if variable in memory
+        else{
+            int valueIdx = findVar(memory, token, lowerBound + TO_VAR);
+            if(valueIdx == -1){
+                printf("Unknown Variable name %s", token);
+                return Failed;
+            }
+            strcpy(value, memory->words[valueIdx].value);
+        }
+
+        strcpy(memory->words[varIdx].value, value);
+    }
+    else if(strcmp(token, "writeFile") == 0){
+        token = strtok(NULL, " ");
+        int pathIdx = findVar(memory, token, lowerBound+TO_VAR);
+        if(pathIdx == -1){
+            printf("Unknown Variable name %s", token);
+            return Failed;
+        }
+
+        FILE* file = fopen(memory->words[pathIdx].value, "w");
+
+        token = strtok(NULL, " ");
+        int valIdx = findVar(memory, token, lowerBound+TO_VAR);
+        if(valIdx == -1){
+            printf("Unknown Variable name %s", token);
+            return Failed;
+        }
+        fprintf(file, "%s", memory->words[valIdx].value);
+        fclose(file);
+    }
+    else if(strcmp(token, "printFromTo") == 0){
+        int lower = findVar(memory, token, lowerBound+TO_VAR);
+        if(lower == -1){
+            printf("Unknown Variable name %s", token);
+            return Failed;
+        }
+        lower = atoi(memory->words[lower].value);
+
+        int upper = findVar(memory, token, lowerBound+TO_VAR);
+        if(upper == -1){
+            printf("Unknown Variable name %s", token);
+            return Failed;
+        }
+        upper = atoi(memory->words[upper].value);
+        for(; lower <= upper; lower++)
+            printf("%d ", lower);
+    }
+    else if(strcmp(token, "semWait") == 0){
+        token = strtok(NULL, " ");
+
+    }
+    return 0;
+}
 void executeLine(char** tokens, int* index) {
     if (strcmp(tokens[*index], "print") == 0) {
         (*index)++;
+
         printf("%s\n", tokens[*index]);
     } else if (strcmp(tokens[*index], "assign") == 0) {
         (*index)++;
@@ -121,7 +219,7 @@ void loadAndExecuteProgram(const char* filePath) {
         printf("Failed to allocate memory for PCB.\n");
         return;
     }
-    int CODESIZE = (filePath == "All_Programs/Program_1" ||filePath == "All_Programs/Program_2") ? 7 : 9 ;    // layetha 👌
+    int CODESIZE = (filePath == "All_Programs/Program_1" ||filePath == "All_Programs/Program_2") ? 7 : 9 ;    // layethha 👌
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
     initPCB(pcb, 0,memory->count ,upperBoundary );
     addWord(memory, "processID", itoa(pcb->processID));

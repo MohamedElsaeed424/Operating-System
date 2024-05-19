@@ -12,8 +12,8 @@
 #define PCB_SIZE 6
 
 typedef struct {
-    char name[20];
-    char value[20];
+    char name[100];
+    char value[100];
 } Word;
 
 typedef struct {
@@ -21,6 +21,20 @@ typedef struct {
     int count;
 } Memory;
 
+int findVar(Memory *mem, const char* name, int varIdx){
+    for(int i = 0; i<3; i++){
+        if(strcmp(name, mem->words[varIdx + i].name) == 0)
+            return varIdx+i;
+    }
+    return -1;
+}
+int findEmptyVar(Memory *mem, const char* name, int varIdx){
+    for(int i = 0; i<3; i++){
+        if(strlen(name) == 0)
+            return varIdx+i;
+    }
+    return -1;
+}
 
 
 void initMem(Memory **mem){
@@ -30,8 +44,8 @@ void initMem(Memory **mem){
 
 void addWord(Memory* memory, char* name, char* value) {
     if (memory->count < MAX_WORDS) {
-        strncpy(memory->words[memory->count].name, name, 20);
-        strncpy(memory->words[memory->count].value, value, 20);
+            strncpy(memory->words[memory->count].name, name, 20);
+            strncpy(memory->words[memory->count].value, value, 20);
         memory->count++;
     } else {
         printf("Memory is full. Cannot add more words.\n");

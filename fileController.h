@@ -1,9 +1,32 @@
 #ifndef MSTWOOS_FILECONTROLLER_H
 #define MSTWOOS_FILECONTROLLER_H
+#define LINE_SIZE 100
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Memory.h"
+/**
+ * loads the program into memory and returns the index of the last line
+ * @param mem
+ * @param start
+ * @param filePath
+ * @return
+ */
+int loadProgramFile(Memory* mem, int start, const char* filePath){
+    FILE* file = fopen(filePath, "r");
+    if (file == NULL) {
+        printf("Failed to open program file.\n");
+        return -1;
+    }
+    char code[LINE_SIZE];
+    int i = 1;
+    while(fgets(code, LINE_SIZE, file)){
+        sprintf(mem->words[start].name, "Instruction %d", i++);
+        strcpy(mem->words[start++].value, code);
+    }
+    return start-1;
+}
 
 char* readProgramFile(const char* filePath) {
     FILE* file = fopen(filePath, "r");
@@ -29,7 +52,7 @@ char* readProgramFile(const char* filePath) {
 }
 
 char** tokenizeProgram(char* program, int* numTokens) {
-    const char* delimiters = " \t\n"; // Whitespace characters
+    const char* delimiters = "\n"; // Whitespace characters
     char* token;
     char* copy = strdup(program);
 
