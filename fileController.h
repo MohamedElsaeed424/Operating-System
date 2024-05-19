@@ -28,8 +28,8 @@ int loadProgramFile(Memory* mem, int start, const char* filePath){
     int i = 1;
     while(fgets(code, LINE_SIZE, file)){
         strtok(code, "\n");
-        sprintf(mem->words[start].name, "Instruction %d", i);
-        addWord(mem, mem->words[start].name, code);
+        sprintf(mem->words[start+i-1].name, "Instruction %d", i);
+        addWord(mem, mem->words[start+i-1].name, code);
         i++;
     }
     return start-1;
