@@ -156,7 +156,7 @@ void loadAndExecuteProgram(const char* filePath) {
         printf("Failed to allocate memory for PCB.\n");
         return;
     }
-    int CODESIZE = (strcmp(filePath ,"All_Programs/Program_1")==0 || strcmp(filePath, "All_Programs/Program_2")) ? 7 : 9 ;    // layethha 👌
+    int CODESIZE = programSize(filePath);
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
     initPCB(pcb, processID++,memory->count ,upperBoundary );
     process->pcb = pcb;
@@ -170,7 +170,7 @@ void loadAndExecuteProgram(const char* filePath) {
     addWord(memory , "a" ,"0");
     addWord(memory , "b" ,"0");
     addWord(memory , "c" ,"0");
-    loadProgramFile(memory,memory->count,filePath);
+    loadProgramFile(memory,memory->count, filePath);
     execute(process);
     free(pcb);
 }
