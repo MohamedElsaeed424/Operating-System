@@ -6,15 +6,21 @@ typedef struct  {
     int processID;
     char processState[10];
     int currentPriority;
-    int programCounter;
+    int pc;
     int memoryLowerBoundary;
     int memoryUpperBoundary;
 }PCB;
 
+typedef struct {
+    int arrival_time;   // input
+    int remaining_time; // num of lines in the program
+    PCB* pcb;
+}Process;
+
 
 void initPCB( PCB *pcb , int processID ,int memoryLowerBoundary, int memoryUpperBoundary) {
     pcb->processID = processID;
-    strcpy(pcb->processState, "NEW");
+    strcpy(pcb->processState, "READY");
     pcb->currentPriority = 1;
     pcb->programCounter = 0;
     pcb->memoryLowerBoundary = memoryLowerBoundary;

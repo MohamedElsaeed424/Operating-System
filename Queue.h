@@ -2,57 +2,69 @@
 #define MSTWOOS_QUEUE_H
 #include "PCB.h"
 #include <stdlib.h>
+#define LEVELS 4
+#define MAX_PROCESSES 3
 
+// front and rear are indices
 typedef struct {
-     PCB* process;
-     Node* next;
-}Node;
+    Process queue[MAX_PROCESSES];
+    int front;
+    int rear;
+    int time_quantum;
+} Queue;
 
-typedef struct  {
-     Node* front;
-     Node* rear;
-}PCBQueue;
+Queue queues[LEVELS];
 
- typedef struct  {
-     PCBQueue* queues[4];
-} ReadyQueue;
-
-void initRQ(ReadyQueue* readyQueue) {
-    for (int i = 0; i < 4; i++) {
-        readyQueue->queues[i].front = NULL;
-        readyQueue->queues[i].rear = NULL;
+void initQueue( int quanta[]) {
+    for (int i = 0; i < LEVELS; i++) {
+        queues[i].front = -1;
+        queues[i].rear = -1;
+        queues[i].time_quantum = quanta[i];
     }
 }
 
-
-void enqueue(ReadyQueue* readyQueue,  PCB* process) {
-    int priority = process->currentPriority - 1;
-    Node* newP = (Node*)malloc(sizeof(Node));
-    newP->process = process;
-    if (readyQueue->queues[priority].rear == NULL) {
-        readyQueue->queues[priority].front = readyQueue->queues[priority].rear = newP;
-    } else {
-        readyQueue->queues[priority].rear->next = newP;
-        readyQueue->queues[priority].rear = newP;
+void enqueue(int level, Process process) {
+    if (queues[level].rear == (MAX_PROCESSES - 1)){
+        printf("Queue of level %d is full\n", level);
+        return;
     }
-    process->processState = "READY"
-    newP->next = NULL;
+    if (queues[level].front == -1)
+        queues[level].front = 0;
+    queues[level].queue[++queues[level].rear] = process;  // increment rear and insert element
 }
 
+Process* dequeue(int level) {
+    if (queues[level].front == -1)
+        return NULL; // Queue is empty
+    Process *process = &queues[level].queue[queues[level].front]; // get the element at front
+    if (queues[level].front == queues[level].rear) // if there is only one element in queue
+        queues[level].front = queues[level].rear = -1; // reset front and rear to -1
+    else
+        queues[level].front++;
+    process->pcb->state = "RUNNING"
+    return process;
+}
 
-PCB* dequeue(ReadyQueue* readyQueue) {
-    for (int i = 0; i < 4; i++) {
-        if (readyQueue->queues[i].front != NULL) {
-            Node* proc = readyQueue->queues[i].front;
-            readyQueue->queues[i].front = readyQueue->queues[i].front->next;
-            if (readyQueue->queues[i].front == NULL) readyQueue->queues[i].rear = NULL;
-            if(proc->process->currentPriority < 4) proc->process->currentPriority++ ;
-            proc->process->processState = "RUNNING";
-            free(proc);
-            return proc->process;
+bool isQueueEmpty(int level) {
+    return queues[level].front == -1;
+}
+void MLFQ(int quanta[]) {
+    for (int level = 0; level < LEVELS; level++) {
+        if (!isQueueEmpty(level)) {
+            Process *p = dequeue(level);
+            int exec_time = (p->remaining_time < quanta[level]) ? p->remaining_time : quanta[level]; // execute for time quantum or remaining time
+            // -------------------------------------Execute the process-----------
+            p->remaining_time -= exec_time; // update remaining time for the process
+            if (p->remaining_time > 0) { // if process is not finished
+                int next_level = (level == LEVELS - 1) ? level : level + 1;// if reached last level keep .if not move to next lower priority queue
+                enqueue(next_level, *p);
+            } else {
+                process_executed++;
+            }
+            break;
         }
     }
-    return NULL;
 }
+
 
 #endif //MSTWOOS_QUEUE_H

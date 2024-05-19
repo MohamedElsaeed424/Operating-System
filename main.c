@@ -54,17 +54,17 @@ void executeLine(char** tokens, int* index) {
         char* filename = tokens[*index];
         (*index)++;
         char* data = tokens[*index];
-        semWait(&fileMutex);
+//        semWait(&fileMutex);
         FILE* file = fopen(filename, "a");
         if (file != NULL) {
             fprintf(file, "%s\n", data);
             fclose(file);
         }
-        semSignal(&fileMutex);
+//        semSignal(&fileMutex);
     } else if (strcmp(tokens[*index], "readFile") == 0) {
         (*index)++;
         char* filename = tokens[*index];
-        semWait(&fileMutex);
+//        semWait(&fileMutex);
         FILE* file = fopen(filename, "r");
         if (file != NULL) {
             char buffer[20];
@@ -74,7 +74,7 @@ void executeLine(char** tokens, int* index) {
             }
             fclose(file);
         }
-        semSignal(&fileMutex);
+//        semSignal(&fileMutex);
     } else if (strcmp(tokens[*index], "printFromTo") == 0) {
         (*index)++;
         int start = atoi(tokens[*index]);
@@ -116,6 +116,7 @@ void interpretProgram(char** tokens, int numTokens) {
 
 void loadAndExecuteProgram(const char* filePath) {
     PCB* pcb = (PCB*)malloc(sizeof(PCB))  ;
+    Process* process = (Process*)malloc(sizeof(Process))  ;
     if (pcb == NULL) {
         printf("Failed to allocate memory for PCB.\n");
         return;
@@ -129,6 +130,7 @@ void loadAndExecuteProgram(const char* filePath) {
     addWord(memory, "programCounter", itoa(pcb->programCounter));
     addWord(memory, "memoryLowerBoundary", itoa(pcb->memoryLowerBoundary));
     addWord(memory, "memoryUpperBoundary", itoa(pcb->memoryUpperBoundary));
+    process->pcb = pcb;
     printf("-------PCB process %d------------------\n" , pcb->processID);
     printPCB(pcb);
     printf("--------------------------\n");
@@ -162,7 +164,6 @@ void terminate(){
 
 int main() {
     init();
-
 //    loadAndExecuteProgram("All_Programs/Program_1");
 //    loadAndExecuteProgram("All_Programs/Program_2");
     loadAndExecuteProgram("All_Programs/Program_1");
