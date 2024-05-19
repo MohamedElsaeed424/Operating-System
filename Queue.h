@@ -41,7 +41,7 @@ Process* dequeue(int level) {
         queues[level].front = queues[level].rear = -1; // reset front and rear to -1
     else
         queues[level].front++;
-    process->pcb->state = "RUNNING"
+    strcpy(process->pcb->processState, "RUNNING");
     return process;
 }
 
