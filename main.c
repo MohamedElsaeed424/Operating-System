@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,7 +7,6 @@
 #include "Memory.h"
 #include "Mutex.h"
 #include "Queue.h"
-
 #define PCB_VALS 6
 #define VAR_VALS 3
 #define TO_CODE 9
@@ -161,11 +159,11 @@ void loadAndExecuteProgram(const char* filePath) {
     addWord(memory, "programCounter", itoaa(pcb->pc));
     addWord(memory, "memoryLowerBoundary", itoaa(pcb->memoryLowerBoundary));
     addWord(memory, "memoryUpperBoundary", itoaa(pcb->memoryUpperBoundary));
-    addWord(memory , "a" ,"0");
-    addWord(memory , "b" ,"0");
-    addWord(memory , "c" ,"0");
+    addWord(memory , "Var1" ,"0");
+    addWord(memory , "Var2" ,"0");
+    addWord(memory , "Var3" ,"0");
     loadProgramFile(memory,memory->count, filePath);
-    execute(process);
+//    execute(process);
     free(pcb);
 }
 
@@ -182,10 +180,9 @@ void terminate(){
 
 int main() {
     init();
-//    loadAndExecuteProgram("All_Programs/Program_1");
-//    loadAndExecuteProgram("All_Programs/Program_2");
     loadAndExecuteProgram("All_Programs/Program_1");
-//    printf("----------Memory----------\n");
+    loadAndExecuteProgram("All_Programs/Program_2");
+    loadAndExecuteProgram("All_Programs/Program_3");
     printMemory(memory);
     return 0;
 }
