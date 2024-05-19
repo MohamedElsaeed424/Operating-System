@@ -112,6 +112,7 @@ enum state execute(Process *process){
         upper = atoi(memory->words[upper].value);
         for(; lower <= upper; lower++)
             printf("%d ", lower);
+        printf("\n");
     }
     else if(strcmp(token, "semWait") == 0){
         token = strtok(NULL, " ");
