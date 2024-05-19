@@ -24,17 +24,20 @@ int isQueueEmpty(LockQueue queues) {
 }
 void enqueue(LockQueue *queue, Process * process) {
     if (queue->rear == 2) {
-        printf("Queue is full\n");
-        return;
+        queue->rear = -1;
     }
     if (queue->front == -1)
         queue->front = 0;
     queue->queue[++queue->rear] = process;
 }
+
 Process* dequeue(LockQueue *queue) {
     if (queue->front == -1) {
         printf("Queue is empty\n");
         return NULL;
+    }
+    if (queue->front == 3) {
+        queue->front = -1;
     }
     Process *process = &queue->queue[queue->front];
     if (queue->front == queue->rear)

@@ -1,4 +1,4 @@
-//#define _OPEN_SYS_ITOA_EXT
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +23,7 @@ MUTEX userInputMutex ;
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
 
-char* itoa(int num) {
+char* itoaa(int num) {
     static char str[12]; // Maximum number of digits for an int
     sprintf(str, "%d", num);
     return str;
@@ -126,14 +126,6 @@ enum state execute(int lowerBound){
     return 0;
 }
 
-void interpretProgram(char** tokens, int numTokens) {
-    printf("Interpreting the program...\n");
-    int i ;
-    for (i = 0; i < numTokens; i++) {
-        execute(tokens, &i);
-    }
-}
-
 void loadAndExecuteProgram(const char* filePath) {
     PCB* pcb = (PCB*)malloc(sizeof(PCB))  ;
     Process* process = (Process*)malloc(sizeof(Process))  ;
@@ -144,12 +136,12 @@ void loadAndExecuteProgram(const char* filePath) {
     int CODESIZE = (strcmp(filePath ,"All_Programs/Program_1")==0 || strcmp(filePath, "All_Programs/Program_2")) ? 7 : 9 ;    // layethha 👌
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
     initPCB(pcb, processID++,memory->count ,upperBoundary );
-    addWord(memory, "processID", itoa(pcb->processID));
+    addWord(memory, "processID", itoaa(pcb->processID));
     addWord(memory, "processState", pcb->processState);
-    addWord(memory, "currentPriority", itoa(pcb->currentPriority));
-    addWord(memory, "programCounter", itoa(pcb->pc));
-    addWord(memory, "memoryLowerBoundary", itoa(pcb->memoryLowerBoundary));
-    addWord(memory, "memoryUpperBoundary", itoa(pcb->memoryUpperBoundary));
+    addWord(memory, "currentPriority", itoaa(pcb->currentPriority));
+    addWord(memory, "programCounter", itoaa(pcb->pc));
+    addWord(memory, "memoryLowerBoundary", itoaa(pcb->memoryLowerBoundary));
+    addWord(memory, "memoryUpperBoundary", itoaa(pcb->memoryUpperBoundary));
     process->pcb = pcb;
     process->remaining_time = CODESIZE ;
     printf("-------PCB process %d------------------\n" , pcb->processID);
