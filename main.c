@@ -2,11 +2,29 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "Process.h"
 #include "fileController.h"
 #include "Memory.h"
 #include "Mutex.h"
 #include "Queue.h"
+
+#define BLACK			0
+#define BLUE			1
+#define GREEN			2
+#define CYAN			3
+#define RED				4
+#define MAGENTA			5
+#define BROWN			6
+#define LIGHTGRAY		7
+#define DARKGRAY		8
+#define LIGHTBLUE		9
+#define LIGHTGREEN		10
+#define LIGHTCYAN		11
+#define LIGHTRED		12
+#define LIGHTMAGENTA	13
+#define YELLOW			14
+#define WHITE			15
 #define PCB_VALS 6
 #define VAR_VALS 3
 #define TO_CODE 9
@@ -28,7 +46,11 @@ char* itoaa(int num) {
     sprintf(str, "%d", num);
     return str;
 }
-
+/**
+ * executes a line of code and returns if process was blocked or not
+ * @param process process to execute line from
+ * @return returns status value {Blocked, Success, Failure}
+ */
 enum state execute(Process *process){
     int lowerBound = process->pcb->memoryLowerBoundary;
     char copy[100]; // Note: important for strtok because strtok modifies string given
@@ -198,9 +220,9 @@ void init(){
     initMem(&memory);
     initQueue();
     init_BlockedQueue(&blockedQueue);
-    init_mutex(&userInputMutex, "userInput");
-    init_mutex(&userOutputMutex, "userOutput");
-    init_mutex(&fileMutex, "file");
+    init_mutex(&userInputMutex, "➡️userInput⬅️");
+    init_mutex(&userOutputMutex, "⬅️userOutput➡️");
+    init_mutex(&fileMutex, "📂file🗃️");
 }
 
 void terminate(){
@@ -292,11 +314,29 @@ int main() {
     printf("----------------⚙️After Execution⚒️----------------\n") ;
     printMemory(memory);
     printf("📃Order of Execution:🛞\n");
-    for(int i = 0; i<150; i++)
-        if(executionOrder[i] == 0)
+
+    HANDLE  hConsole;
+    int k;
+
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    for(int i = 0; i<150; i++){
+        if(executionOrder[i] == 0){
+            SetConsoleTextAttribute(hConsole, LIGHTGRAY);
             printf("  | ");
-        else
+        }
+        else{
+            int color;
+            if(executionOrder[i] == 1)
+                color = BLUE;
+            else if(executionOrder[i] == 2)
+                color = GREEN;
+            else
+                color = RED;
+            SetConsoleTextAttribute(hConsole, color);
             printf("%d | ", executionOrder[i]);
+        }
+
+    }
 
     terminate();
     return 0;
