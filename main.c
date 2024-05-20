@@ -164,7 +164,7 @@ enum state execute(Process *process){
 void loadAndExecuteProgram(const char* filePath) {
     PCB* pcb = (PCB*)malloc(sizeof(PCB))  ;
     Process* process = (Process*)malloc(sizeof(Process))  ;
-    if (pcb == NULL) {
+    if (pcb == NULL || process == NULL) {
         printf("Failed to allocate memory for PCB.\n");
         return;
     }
@@ -201,7 +201,6 @@ void init(){
 void terminate(){
     free(memory);
 }
-int clock = 0;
 int main() {
     init();
     // TODO: Use arrival times
@@ -219,7 +218,8 @@ int main() {
 //    loadAndExecuteProgram("All_Programs/Program_1");
 //    loadAndExecuteProgram("All_Programs/Program_2");
 //    loadAndExecuteProgram("All_Programs/Program_3");
-
+    int clock = 0;
+    Process *curr = NULL;
     do{
         if(clock == arrival_time1)
             loadAndExecuteProgram("All_Programs/Program_1");
@@ -227,40 +227,44 @@ int main() {
             loadAndExecuteProgram("All_Programs/Program_2");
         if(clock == arrival_time3)
             loadAndExecuteProgram("All_Programs/Program_3");
-
-        Process *curr = dequeueML(memory);
+        if(curr == NULL || strcmp(curr->pcb->processState, "Running") != 0)
+            curr = dequeueML(memory);
         bool blocked = false;
+        //Execution of process
+        printf("clock: %d\n", clock);
         printf("Current process: %d\n", curr->pcb->processID);
-        while(curr->remaining_time){
-            int state = execute(curr);
-            if(state == Blocked){
-                blocked = true;
-                break;
-            }
-        }
+        int state = execute(curr);
+        clock++;
+        if(state == Blocked)
+            blocked = true;
+
         // if process finished free it and don't enqueue
         if(curr->pcb->pc > curr->pcb->memoryUpperBoundary){
             free(curr->pcb);
             free(curr);
-            clock++;
+            curr = NULL;
             continue;
         }
+        // still working
+        if(curr->remaining_time > 0 && !blocked)
+            continue;
+
         // if quantum was finished
         if(curr->remaining_time <= 0){
             incPriority(curr->pcb, memory);
         }
-        // if it is not blocked put it in ready queue
-        if(!blocked){
-            changeState(curr->pcb, memory, "Ready");
-            enqueueML(curr->pcb->currentPriority-1, curr);
-        }
-        else{
-        // else enqueue in blocked queue
+        // if it is blocked put it in blocked queue
+        if(blocked){
             changeState(curr->pcb, memory, "Blocked");
             enqueueBlocked(&blockedQueue, curr);
         }
-        clock++;
-    }while(!isAllEmpty() || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
+        else{
+        // else enqueue in ready queue
+            changeState(curr->pcb, memory, "Ready");
+            enqueueML(curr->pcb->currentPriority-1, curr);
+        }
+
+    }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
 
     printMemory(memory);
     terminate();
