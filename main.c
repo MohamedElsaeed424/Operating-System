@@ -205,6 +205,7 @@ void terminate(){
 }
 int main() {
     init();
+    printf("------Before Execution-------");
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
@@ -267,8 +268,6 @@ int main() {
             printMemory(memory);
             continue;
         }
-
-
         // if quantum was finished
         if(curr->remaining_time <= 0){
             incPriority(curr->pcb, memory);
@@ -277,7 +276,7 @@ int main() {
         printMemory(memory);
 
     }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
-
+    printf("-------After Execution-------\n") ;
     printMemory(memory);
     terminate();
     return 0;
