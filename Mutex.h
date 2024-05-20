@@ -87,9 +87,9 @@ Process *semSignal(MUTEX *m , Process* p) {
             return NULL;
         }
         else {
+            printf("\n");
             Process * proc = dequeueLock(&m->queue);
             m->ownerID = proc->pcb->processID;
-            printf("\n");
             printMutexQ(m);
             printf("\n");
             return proc;

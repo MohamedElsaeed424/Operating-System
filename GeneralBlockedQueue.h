@@ -35,8 +35,10 @@ void enqueueBlocked(BlockedQueue *queue, Process * process) {
         return;
     }
     queue->queue[++queue->rear] = process;
+    printf("\n");
     printf("enqueue process %d\n", process->pcb->processID);
     printBlocked(queue);
+    printf("\n");
 }
 void dequeueBlocked(BlockedQueue *queue, Process* unblocked) {
     if(isBlockedEmpty(queue)){
@@ -51,13 +53,16 @@ void dequeueBlocked(BlockedQueue *queue, Process* unblocked) {
         }
     }
     int id = queue->queue[removed]->pcb->processID;
-    printf("dequeue process %d\n", id);
+
     for(int i = removed; i < queue->rear; i++){
         queue->queue[i] = queue->queue[i+1];
     }
     queue->rear--;
 
+    printf("\n");
+    printf("dequeue process %d\n", id);
     printBlocked(queue);
+    printf("\n");
 }
 
 

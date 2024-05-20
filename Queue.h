@@ -78,7 +78,9 @@ void enqueueML(int level, Process *process) {
     }
     printf("enqueue process %d\n", process->pcb->processID);
     enqueue(&queues[level], process);
+    printf("\n");
     printML();
+    printf("\n");
 }
 
 Process* dequeueML(Memory *memory) {
@@ -87,8 +89,10 @@ Process* dequeueML(Memory *memory) {
         if(isQueueEmpty(&queues[i]))
             continue;
         process = dequeue(&queues[i]);
+        printf("\n");
         printf("dequeue process %d\n", process->pcb->processID);
         printML();
+        printf("\n");
 
         changeState(process->pcb, memory, "Running");
         int rem = process->pcb->memoryUpperBoundary - process->pcb->pc+1;
