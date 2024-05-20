@@ -205,7 +205,7 @@ void terminate(){
 }
 int main() {
     init();
-    printf("------Before Execution-------\n");
+    printf("----------------⚙️Before Execution️⚒️----------------\n");
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
@@ -249,6 +249,10 @@ int main() {
 
         if(curr == NULL || strcmp(curr->pcb->processState, "Running") != 0)
             curr = dequeueML(memory);
+        if(curr == NULL){
+            clock++;
+            continue;
+        }
 
         blocked = false;
         //Execution of process
@@ -276,7 +280,7 @@ int main() {
         printMemory(memory);
 
     }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
-    printf("-------After Execution-------\n") ;
+    printf("----------------⚙️After Execution⚒️----------------\n") ;
     printMemory(memory);
     terminate();
     return 0;
