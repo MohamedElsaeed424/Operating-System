@@ -34,7 +34,7 @@ enum state execute(Process *process){
     strcpy(copy, memory->words[process->pcb->pc].value);
     incPC(process->pcb, memory);
     process->remaining_time--;
-    printf("🔨process %d is currently executing: %s\n🔨", process->pcb->processID, copy);
+    printf("🔨 process %d is currently executing: %s 🔨\n", process->pcb->processID, copy);
 
     char* token = strtok(copy, " ");
     if(strcmp(token, "print") == 0){
@@ -205,7 +205,7 @@ void terminate(){
 }
 int main() {
     init();
-    printf("----------------⚙️Before Execution️⚒️----------------\n");
+    printf("----------------⚙️ Before Execution️ ⚒️----------------\n");
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
@@ -226,7 +226,7 @@ int main() {
     bool blocked = false;
     do{
         printf("\n");
-        printf("-----⏰⏱️🕧clock: %d⏲️🕰️🕛-----\n", clock);
+        printf("-----⏰⏱️🕧 clock: %d ⏲️🕰️🕛-----\n", clock);
         printf("\n");
         if(clock == arrival_time1)
             loadAndEnqueueProgram("All_Programs/Program_1", 1);
@@ -260,7 +260,7 @@ int main() {
         blocked = false;
         //Execution of process
         printf("\n");
-        printf("🏃‍♂️Current running process: %d🏃\n", curr->pcb->processID);
+        printf("🏃‍♂️ Current running process: %d 🏃\n", curr->pcb->processID);
         int state = execute(curr);
         printf("\n");
         blocked = state == Blocked;
@@ -270,7 +270,7 @@ int main() {
         // if process finished free it and don't enqueue
         if(curr->pcb->pc > curr->pcb->memoryUpperBoundary){
             changeState(curr->pcb, memory, "Finished");
-            printf("process %d has finished everything\n", curr->pcb->processID);
+            printf("🏁 process %d has finished everything 🏁\n", curr->pcb->processID);
             free(curr->pcb);
             free(curr);
             curr = NULL;
