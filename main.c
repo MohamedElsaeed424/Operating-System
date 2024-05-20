@@ -20,6 +20,7 @@ int processID = 1;
 MUTEX userInputMutex = {1};
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
+BlockedQueue blockedQueue;
 
 char* itoaa(int num) {
     static char str[12]; // Maximum number of digits for an int
@@ -154,6 +155,8 @@ enum state execute(Process *process){
         if(unblocked != NULL){
             enqueueML(unblocked->pcb->currentPriority-1, unblocked);
             // and remove from general blocked queue
+            changeState(unblocked->pcb, memory, "Ready");
+            dequeueBlocked(&blockedQueue, unblocked);
         }
     }
     return Success;
@@ -190,6 +193,7 @@ void loadAndExecuteProgram(const char* filePath) {
 void init(){
     initMem(&memory);
     initQueue();
+    init_BlockedQueue(&blockedQueue);
     init_mutex(&userInputMutex);
     init_mutex(&userOutputMutex);
     init_mutex(&fileMutex);
@@ -202,18 +206,25 @@ int clock = 0;
 int main() {
     init();
     // TODO: Use arrival times
-//    int arrival_time[2];
-//    for(int i = 0; i<3; i++){
-//        printf("Arrival time %d:", i+1);
-//        scanf("%d", &arrival_time[i]);
-//    }
+    int arrival_time1, arrival_time2, arrival_time3;
+
+    printf("Arrival time 1:");
+    scanf("%d", &arrival_time[i]);
 
     loadAndExecuteProgram("All_Programs/Program_1");
     loadAndExecuteProgram("All_Programs/Program_2");
     loadAndExecuteProgram("All_Programs/Program_3");
+    if(clock == arrival_time[0])
+        loadAndExecuteProgram("All_Programs/Program_1");
+    if(clock == arrival_time[1])
+        loadAndExecuteProgram("All_Programs/Program_2");
+    if(clock == arrival_time[2])
+        loadAndExecuteProgram("All_Programs/Program_3");
+
     while(!isAllEmpty()){
         Process *curr = dequeueML(memory);
         bool blocked = false;
+        printf("Current process: %d\n", curr->pcb->processID);
         while(curr->remaining_time){
             int state = execute(curr);
             if(state == Blocked){
@@ -232,11 +243,15 @@ int main() {
             incPriority(curr->pcb, memory);
         }
         // if it is not blocked put it in ready queue
-        // TODO: change state to Ready
-        // TODO: make general blocked queue
-        if(!blocked)
+        if(!blocked){
+            changeState(curr->pcb, memory, "Ready");
             enqueueML(curr->pcb->currentPriority-1, curr);
+        }
+        else{
         // else enqueue in blocked queue
+            changeState(curr->pcb, memory, "Blocked");
+            enqueueBlocked(&blockedQueue, curr);
+        }
     }
     printMemory(memory);
     terminate();

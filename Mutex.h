@@ -1,6 +1,7 @@
 #ifndef OPERATING_SYSTEM_MUTEX_H
 #define OPERATING_SYSTEM_MUTEX_H
 #include "Process.h"
+#include "GeneralBlockedQueue.h"
 
 typedef struct {
     Process* queue[3];
@@ -56,7 +57,7 @@ Process* dequeueLock(LockQueue *queue) {
     queue->rear--;
     return process;
 }
-enum state semWait(MUTEX *m , Process * p ) {
+enum state semWait(MUTEX *m , Process * p) {
     if (m->value == one) {
         m->ownerID = p->pcb->processID;
         m->value = zero;
