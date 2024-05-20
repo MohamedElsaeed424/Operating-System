@@ -21,7 +21,7 @@ MUTEX userInputMutex ;
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
 BlockedQueue blockedQueue;
-char executionOrder[34];
+char executionOrder[150];
 
 char* itoaa(int num) {
     static char str[12]; // Maximum number of digits for an int
@@ -290,7 +290,9 @@ int main() {
     printf("----------------⚙️After Execution⚒️----------------\n") ;
     printMemory(memory);
     printf("📃Order of Execution:🛞\n");
-    printf("%s\n", executionOrder);
+    for(int i = 0; i<150; i++)
+        printf("%d | ", executionOrder[i]);
+
     terminate();
     return 0;
 }
