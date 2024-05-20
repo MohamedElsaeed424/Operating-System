@@ -205,7 +205,7 @@ void terminate(){
 }
 int main() {
     init();
-    printf("------Before Execution-------");
+    printf("------Before Execution-------\n");
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
