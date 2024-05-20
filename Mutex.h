@@ -12,14 +12,16 @@ typedef struct {
 
 typedef struct {
     enum {zero,one} value;
+    char resourceName[10];
     LockQueue queue;
     int ownerID;
 }MUTEX;
 
 enum state {Failed = -1, Success = 0, Blocked = 1};
 
-void init_mutex(MUTEX *mutex) {
+void init_mutex(MUTEX *mutex, char name[]) {
     mutex->value = one;  // Assuming 'zero' means unlocked. No 'one means unlocked you twat
+    strcpy(mutex->resourceName,name);
     mutex->queue.front = 0;
     mutex->queue.rear = -1;
     mutex->queue.capacity = 3;
@@ -57,6 +59,13 @@ Process* dequeueLock(LockQueue *queue) {
     queue->rear--;
     return process;
 }
+void printMutexQ(MUTEX *m){
+    printf("Mutex %s ownerID: %d\n", m->resourceName, m->ownerID);
+    for(int i = 0; i<=m->queue.rear; i++){
+        printf("%d ", m->queue.queue[i]->pcb->processID);
+    }
+    printf("\n");
+}
 enum state semWait(MUTEX *m , Process * p) {
     if (m->value == one) {
         m->ownerID = p->pcb->processID;
@@ -70,6 +79,7 @@ Process *semSignal(MUTEX *m , Process* p) {
     if(m->ownerID == p->pcb->processID){
         if (isLockQueueEmpty(&m->queue)){
             m->value = one;
+            m->ownerID = -1;
             return NULL;
         }
         else {

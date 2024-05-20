@@ -50,7 +50,8 @@ void dequeueBlocked(BlockedQueue *queue, Process* unblocked) {
     queue->rear--;
 }
 void printBlocked(BlockedQueue* queue){
-    for(int i = 0; i < queue->rear; i++){
+    printf("General Blocked Queue: ");
+    for(int i = 0; i <= queue->rear; i++){
         printf("%d ",queue->queue[i]->pcb->processID);
     }
     printf("\n");

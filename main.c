@@ -17,7 +17,7 @@ enum state print(char* token, int lowerBound);
 
 Memory* memory ;
 int processID = 1;
-MUTEX userInputMutex = {1};
+MUTEX userInputMutex ;
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
 BlockedQueue blockedQueue;
@@ -161,7 +161,7 @@ enum state execute(Process *process){
     return Success;
 }
 
-void loadAndExecuteProgram(const char* filePath) {
+void loadAndExecuteProgram(const char* filePath, int id) {
     PCB* pcb = (PCB*)malloc(sizeof(PCB))  ;
     Process* process = (Process*)malloc(sizeof(Process))  ;
     if (pcb == NULL || process == NULL) {
@@ -170,7 +170,8 @@ void loadAndExecuteProgram(const char* filePath) {
     }
     int CODESIZE = programSize(filePath);
     int upperBoundary =memory->count + PCB_VALS+VAR_VALS+CODESIZE ;
-    initPCB(pcb, processID++,memory->count ,upperBoundary );
+//    initPCB(pcb, processID++,memory->count ,upperBoundary );
+    initPCB(pcb, id,memory->count ,upperBoundary );
     process->pcb = pcb;
     process->remaining_time = CODESIZE ;
     addWord(memory, "processID", itoaa(pcb->processID));
@@ -193,9 +194,9 @@ void init(){
     initMem(&memory);
     initQueue();
     init_BlockedQueue(&blockedQueue);
-    init_mutex(&userInputMutex);
-    init_mutex(&userOutputMutex);
-    init_mutex(&fileMutex);
+    init_mutex(&userInputMutex, "userInput");
+    init_mutex(&userOutputMutex, "userOutput");
+    init_mutex(&fileMutex, "file");
 }
 
 void terminate(){
@@ -223,11 +224,11 @@ int main() {
     Process *curr = NULL;
     do{
         if(clock == arrival_time1)
-            loadAndExecuteProgram("All_Programs/Program_1");
+            loadAndExecuteProgram("All_Programs/Program_1", 1);
         if(clock == arrival_time2)
-            loadAndExecuteProgram("All_Programs/Program_2");
+            loadAndExecuteProgram("All_Programs/Program_2", 2);
         if(clock == arrival_time3)
-            loadAndExecuteProgram("All_Programs/Program_3");
+            loadAndExecuteProgram("All_Programs/Program_3", 3);
         if(curr == NULL || strcmp(curr->pcb->processState, "Running") != 0)
             curr = dequeueML(memory);
         bool blocked = false;

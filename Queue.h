@@ -38,6 +38,11 @@ Process* dequeue(Queue *queue) {
     queue->rear--;
     return process;
 }
+void printQueue(Queue *queue){
+    for(int i = 0;i <= queue->rear; i++)
+        printf("%d ", queue->queue[i]->pcb->processID);
+}
+
 
 Queue queues[LEVELS];
 const int quanta[] = {1, 2, 4, 8};
@@ -79,6 +84,14 @@ Process* dequeueML(Memory *memory) {
         return process;
     }
     return NULL;
+}
+void printML(){
+    printf("Multi level feedBack Queue:\n");
+    for(int i = 0; i<LEVELS; i++){
+        printf("Level %d: ", i+1);
+        printQueue(&queues[LEVELS]);
+        printf("\n");
+    }
 }
 
 #endif //MSTWOOS_QUEUE_H
