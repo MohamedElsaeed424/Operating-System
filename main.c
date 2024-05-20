@@ -214,11 +214,12 @@ int main() {
 
     printf("Arrival time 3:");
     scanf("%d", &arrival_time3);
-
+    int min = arrival_time1 <= arrival_time2? arrival_time1: arrival_time2;
+    min = min <= arrival_time3? min : arrival_time3;
 //    loadAndExecuteProgram("All_Programs/Program_1");
 //    loadAndExecuteProgram("All_Programs/Program_2");
 //    loadAndExecuteProgram("All_Programs/Program_3");
-    int clock = 0;
+    int clock = min;
     Process *curr = NULL;
     do{
         if(clock == arrival_time1)

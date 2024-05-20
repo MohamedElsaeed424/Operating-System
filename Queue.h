@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <math.h>
 
-#define min(a,b)
 #define LEVELS 4
 #define MAX_PROCESSES 3
 
