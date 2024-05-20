@@ -86,7 +86,7 @@ void updateWord(Memory* memory, char* name, char* value) {
 
 void printMemory(Memory* memory) {
     printf("\n");
-    printf("Memory: \n");
+    printf("📝 Memory 💾:\n");
     for (int i = 0; i < memory->count; i++) {
         printf("Location: %d -> %s,%s\n", i ,memory->words[i].name, memory->words[i].value);
     }
