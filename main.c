@@ -50,7 +50,6 @@ enum state execute(Process *process){
 
         token = strtok(NULL, " ");
         char value[100];
-//        memset(value,0, sizeof(value));
         // if input
         if(strcmp(token, "input") == 0){
             printf("Please enter a value:\n");
@@ -209,19 +208,26 @@ int main() {
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
-    scanf("%d", &arrival_time[i]);
+    scanf("%d", &arrival_time1);
 
-    loadAndExecuteProgram("All_Programs/Program_1");
-    loadAndExecuteProgram("All_Programs/Program_2");
-    loadAndExecuteProgram("All_Programs/Program_3");
-    if(clock == arrival_time[0])
-        loadAndExecuteProgram("All_Programs/Program_1");
-    if(clock == arrival_time[1])
-        loadAndExecuteProgram("All_Programs/Program_2");
-    if(clock == arrival_time[2])
-        loadAndExecuteProgram("All_Programs/Program_3");
+    printf("Arrival time 2:");
+    scanf("%d", &arrival_time2);
 
-    while(!isAllEmpty()){
+    printf("Arrival time 3:");
+    scanf("%d", &arrival_time3);
+
+//    loadAndExecuteProgram("All_Programs/Program_1");
+//    loadAndExecuteProgram("All_Programs/Program_2");
+//    loadAndExecuteProgram("All_Programs/Program_3");
+
+    do{
+        if(clock == arrival_time1)
+            loadAndExecuteProgram("All_Programs/Program_1");
+        if(clock == arrival_time2)
+            loadAndExecuteProgram("All_Programs/Program_2");
+        if(clock == arrival_time3)
+            loadAndExecuteProgram("All_Programs/Program_3");
+
         Process *curr = dequeueML(memory);
         bool blocked = false;
         printf("Current process: %d\n", curr->pcb->processID);
@@ -236,6 +242,7 @@ int main() {
         if(curr->pcb->pc > curr->pcb->memoryUpperBoundary){
             free(curr->pcb);
             free(curr);
+            clock++;
             continue;
         }
         // if quantum was finished
@@ -252,7 +259,9 @@ int main() {
             changeState(curr->pcb, memory, "Blocked");
             enqueueBlocked(&blockedQueue, curr);
         }
-    }
+        clock++;
+    }while(!isAllEmpty() || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
+
     printMemory(memory);
     terminate();
     return 0;
@@ -261,7 +270,7 @@ enum state print(char* token, int lowerBound){
     token = strtok(NULL, " ");
     int varIdx = findVar(memory, token, lowerBound+TO_VAR);
     if(varIdx == -1){
-        printf("Unknown Variable name %s", token);
+        printf("Unknown Variable name %s\n", token);
         return Failed;
     }
     printf("%s\n", memory->words[varIdx].value);
