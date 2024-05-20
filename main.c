@@ -21,6 +21,7 @@ MUTEX userInputMutex ;
 MUTEX userOutputMutex ;
 MUTEX fileMutex ;
 BlockedQueue blockedQueue;
+char executionOrder[34];
 
 char* itoaa(int num) {
     static char str[12]; // Maximum number of digits for an int
@@ -265,6 +266,7 @@ int main() {
         printf("\n");
         blocked = state == Blocked;
 
+        executionOrder[clock] = (char)curr->pcb->processID;
         clock++;
 
         // if process finished free it and don't enqueue
@@ -287,6 +289,8 @@ int main() {
     }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
     printf("----------------⚙️After Execution⚒️----------------\n") ;
     printMemory(memory);
+    printf("📃Order of Execution:🛞\n");
+    printf("%s\n", executionOrder);
     terminate();
     return 0;
 }
