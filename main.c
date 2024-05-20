@@ -35,6 +35,7 @@ enum state execute(Process *process){
     strcpy(copy, memory->words[process->pcb->pc].value);
     incPC(process->pcb, memory);
     process->remaining_time--;
+    process->remaining_instructions--;
     printf("🔨 process %d is currently executing: %s 🔨\n", process->pcb->processID, copy);
 
     char* token = strtok(copy, " ");
@@ -175,6 +176,7 @@ void loadAndEnqueueProgram(const char* filePath, int id) {
     initPCB(pcb, id,memory->count ,upperBoundary );
     process->pcb = pcb;
     process->remaining_time = CODESIZE ;
+    process->remaining_instructions = CODESIZE;
     addWord(memory, "processID", itoaa(pcb->processID));
     addWord(memory, "processState", pcb->processState);
     addWord(memory, "currentPriority", itoaa(pcb->currentPriority));
@@ -286,12 +288,15 @@ int main() {
 
         printMemory(memory);
 
-    }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
+    }while(!isAllEmpty() || (curr != NULL && curr->pcb->pc <= curr->pcb->memoryUpperBoundary) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
     printf("----------------⚙️After Execution⚒️----------------\n") ;
     printMemory(memory);
     printf("📃Order of Execution:🛞\n");
     for(int i = 0; i<150; i++)
-        printf("%d | ", executionOrder[i]);
+        if(executionOrder[i] == 0)
+            printf("  | ");
+        else
+            printf("%d | ", executionOrder[i]);
 
     terminate();
     return 0;

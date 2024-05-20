@@ -1,0 +1,1289 @@
+inputs: 0 9 11 text.txt broooooooo text.txt
+
+Output:
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 2 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 1 ≡ƒÅâ
+≡ƒö¿ process 1 is currently executing: assign b input ≡ƒö¿
+Please enter a value:
+7
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Running
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,12
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 3 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 1
+
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3: 1
+Level 4:
+
+
+dequeue process 1
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 1 ≡ƒÅâ
+≡ƒö¿ process 1 is currently executing: semSignal userInput ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Running
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,13
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 4 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 1 ≡ƒÅâ
+≡ƒö¿ process 1 is currently executing: semWait userOutput ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Running
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,14
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 5 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 1 ≡ƒÅâ
+≡ƒö¿ process 1 is currently executing: printFromTo a b ≡ƒö¿
+1 2 3 4 5 6 7
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Running
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,15
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 6 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 1 ≡ƒÅâ
+≡ƒö¿ process 1 is currently executing: semSignal userOutput ≡ƒö¿
+
+≡ƒÅü process 1 has finished everything ≡ƒÅü
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 7 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 8 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 9 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 2
+
+Multi level feedBack Queue:
+Level 1: 2
+Level 2:
+Level 3:
+Level 4:
+
+
+dequeue process 2
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: semWait userInput ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,2
+Location: 19 -> programCounter,26
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> ,0
+Location: 23 -> ,0
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 10 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 2
+
+Multi level feedBack Queue:
+Level 1:
+Level 2: 2
+Level 3:
+Level 4:
+
+
+dequeue process 2
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: assign a input ≡ƒö¿
+Please enter a value:
+text.txt
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,2
+Location: 19 -> programCounter,27
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> ,0
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 11 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 3
+
+Multi level feedBack Queue:
+Level 1: 3
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: assign b input ≡ƒö¿
+Please enter a value:
+brooooooooooooo
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,28
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,READY
+Location: 34 -> currentPriority,1
+Location: 35 -> programCounter,41
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 12 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 2
+
+Multi level feedBack Queue:
+Level 1: 3
+Level 2:
+Level 3: 2
+Level 4:
+
+
+dequeue process 3
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3: 2
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semWait userInput ≡ƒö¿
+
+Mutex≡ƒöÆ userInput ownerID: 2
+≡ƒöÆLockQueue≡ƒöÆ: 3
+
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Ready
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,28
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,42
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 13 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+enqueue process 3
+General Blocked Queue: 3
+
+
+dequeue process 2
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: semSignal userInput ≡ƒö¿
+
+Mutex≡ƒöÆ userInput ownerID: 3
+≡ƒöÆLockQueue≡ƒöÆ:
+
+enqueue process 3
+
+Multi level feedBack Queue:
+Level 1:
+Level 2: 3
+Level 3:
+Level 4:
+
+
+dequeue process 3
+General Blocked Queue:
+
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,29
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Ready
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,42
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 14 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: semWait file ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,30
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Ready
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,42
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 15 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: writeFile a b ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Running
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,31
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Ready
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,42
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 16 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 2 ≡ƒÅâ
+≡ƒö¿ process 2 is currently executing: semSignal file ≡ƒö¿
+
+≡ƒÅü process 2 has finished everything ≡ƒÅü
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Ready
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,42
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> ,0
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 17 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+dequeue process 3
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: assign a input ≡ƒö¿
+Please enter a value:
+text.txt
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,2
+Location: 35 -> programCounter,43
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 18 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semSignal userInput ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,3
+Location: 35 -> programCounter,44
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 19 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 3
+
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3: 3
+Level 4:
+
+
+dequeue process 3
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semWait file ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,3
+Location: 35 -> programCounter,45
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> ,0
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 20 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: assign b readFile a ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,3
+Location: 35 -> programCounter,46
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 21 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semSignal file ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,3
+Location: 35 -> programCounter,47
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 22 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semWait userOutput ≡ƒö¿
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,4
+Location: 35 -> programCounter,48
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 23 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+enqueue process 3
+
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4: 3
+
+
+dequeue process 3
+Multi level feedBack Queue:
+Level 1:
+Level 2:
+Level 3:
+Level 4:
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: print b ≡ƒö¿
+brooooooooooooo
+
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Running
+Location: 34 -> currentPriority,4
+Location: 35 -> programCounter,49
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+
+-----ΓÅ░ΓÅ▒∩╕Å≡ƒòº clock: 24 ΓÅ▓∩╕Å≡ƒò░∩╕Å≡ƒò¢-----
+
+
+≡ƒÅâΓÇìΓÖé∩╕Å Current running process: 3 ≡ƒÅâ
+≡ƒö¿ process 3 is currently executing: semSignal userOutput ≡ƒö¿
+
+≡ƒÅü process 3 has finished everything ≡ƒÅü
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Finished
+Location: 34 -> currentPriority,4
+Location: 35 -> programCounter,50
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+----------------ΓÜÖ∩╕ÅAfter ExecutionΓÜÆ∩╕Å----------------
+
+≡ƒô¥ Memory ≡ƒÆ╛:
+Location: 0 -> processID,1
+Location: 1 -> processState,Finished
+Location: 2 -> currentPriority,3
+Location: 3 -> programCounter,16
+Location: 4 -> memoryLowerBoundary,0
+Location: 5 -> memoryUpperBoundary,15
+Location: 6 -> a,1
+Location: 7 -> b,7
+Location: 8 -> ,0
+Location: 9 -> Instruction 1,semWait userInput
+Location: 10 -> Instruction 2,assign a input
+Location: 11 -> Instruction 3,assign b input
+Location: 12 -> Instruction 4,semSignal userInput
+Location: 13 -> Instruction 5,semWait userOutput
+Location: 14 -> Instruction 6,printFromTo a b
+Location: 15 -> Instruction 7,semSignal userOutput
+Location: 16 -> processID,2
+Location: 17 -> processState,Finished
+Location: 18 -> currentPriority,3
+Location: 19 -> programCounter,32
+Location: 20 -> memoryLowerBoundary,16
+Location: 21 -> memoryUpperBoundary,31
+Location: 22 -> a,text.txt
+Location: 23 -> b,brooooooooooooo
+Location: 24 -> ,0
+Location: 25 -> Instruction 1,semWait userInput
+Location: 26 -> Instruction 2,assign a input
+Location: 27 -> Instruction 3,assign b input
+Location: 28 -> Instruction 4,semSignal userInput
+Location: 29 -> Instruction 5,semWait file
+Location: 30 -> Instruction 6,writeFile a b
+Location: 31 -> Instruction 7,semSignal file
+Location: 32 -> processID,3
+Location: 33 -> processState,Finished
+Location: 34 -> currentPriority,4
+Location: 35 -> programCounter,50
+Location: 36 -> memoryLowerBoundary,32
+Location: 37 -> memoryUpperBoundary,49
+Location: 38 -> a,text.txt
+Location: 39 -> b,brooooooooooooo
+Location: 40 -> ,0
+Location: 41 -> Instruction 1,semWait userInput
+Location: 42 -> Instruction 2,assign a input
+Location: 43 -> Instruction 3,semSignal userInput
+Location: 44 -> Instruction 4,semWait file
+Location: 45 -> Instruction 5,assign b readFile a
+Location: 46 -> Instruction 6,semSignal file
+Location: 47 -> Instruction 7,semWait userOutput
+Location: 48 -> Instruction 8,print b
+Location: 49 -> Instruction 9,semSignal userOutput
+
+≡ƒôâOrder of Execution:≡ƒ¢₧
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 2 | 2 | 2 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 0 | 0 | 0 | 0 | 0 |
+0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |

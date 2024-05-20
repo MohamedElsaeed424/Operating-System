@@ -14,7 +14,7 @@ typedef struct  {
 }PCB;
 
 typedef struct {
-    int arrival_time;   // input
+    int remaining_instructions;
     int remaining_time; // num of lines in the program
     PCB* pcb;
 }Process;
