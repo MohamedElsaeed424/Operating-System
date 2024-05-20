@@ -61,7 +61,14 @@ void initQueue() {
         queues[i].time_quantum = quanta[i];
     }
 }
-
+void printML(){
+    printf("Multi level feedBack Queue:\n");
+    for(int i = 0; i<LEVELS; i++){
+        printf("Level %d: ", i+1);
+        printQueue(&queues[i]);
+        printf("\n");
+    }
+}
 
 void enqueueML(int level, Process *process) {
 
@@ -69,7 +76,9 @@ void enqueueML(int level, Process *process) {
         printf("Queue of level %d is full\n", level);
         return;
     }
+    printf("enqueue process %d\n", process->pcb->processID);
     enqueue(&queues[level], process);
+    printML();
 }
 
 Process* dequeueML(Memory *memory) {
@@ -78,6 +87,9 @@ Process* dequeueML(Memory *memory) {
         if(isQueueEmpty(&queues[i]))
             continue;
         process = dequeue(&queues[i]);
+        printf("dequeue process %d\n", process->pcb->processID);
+        printML();
+
         changeState(process->pcb, memory, "Running");
         int rem = process->pcb->memoryUpperBoundary - process->pcb->pc+1;
         process->remaining_time = rem < quanta[i]? rem : quanta[i];
@@ -85,13 +97,6 @@ Process* dequeueML(Memory *memory) {
     }
     return NULL;
 }
-void printML(){
-    printf("Multi level feedBack Queue:\n");
-    for(int i = 0; i<LEVELS; i++){
-        printf("Level %d: ", i+1);
-        printQueue(&queues[LEVELS]);
-        printf("\n");
-    }
-}
+
 
 #endif //MSTWOOS_QUEUE_H

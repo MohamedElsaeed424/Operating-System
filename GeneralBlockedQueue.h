@@ -25,30 +25,7 @@ int isBlockedEmpty(BlockedQueue* queues) {
 int isBlockedFull(BlockedQueue* queues) {
     return queues->rear+1 == queues->capacity;
 }
-void enqueueBlocked(BlockedQueue *queue, Process * process) {
-    if(isBlockedFull(queue)){
-        printf("Queue is Full\n");
-        return;
-    }
-    queue->queue[++queue->rear] = process;
-}
-void dequeueBlocked(BlockedQueue *queue, Process* unblocked) {
-    if(isBlockedEmpty(queue)){
-        printf("General Blocked queue is empty\n");
-        return;
-    }
-    int removed = -1;
-    for(int i = 0; i < queue->rear; i++){
-        if(queue->queue[i] == unblocked){
-            // or check if processId's are equal, if something goes wrong
-            removed = i;
-        }
-    }
-    for(int i = removed; i < queue->rear; i++){
-        queue->queue[i] = queue->queue[i+1];
-    }
-    queue->rear--;
-}
+
 void printBlocked(BlockedQueue* queue){
     printf("General Blocked Queue: ");
     for(int i = 0; i <= queue->rear; i++){
@@ -56,5 +33,36 @@ void printBlocked(BlockedQueue* queue){
     }
     printf("\n");
 }
+void enqueueBlocked(BlockedQueue *queue, Process * process) {
+    if(isBlockedFull(queue)){
+        printf("Queue is Full\n");
+        return;
+    }
+    queue->queue[++queue->rear] = process;
+    printf("enqueue process %d\n", process->pcb->processID);
+    printBlocked(queue);
+}
+void dequeueBlocked(BlockedQueue *queue, Process* unblocked) {
+    if(isBlockedEmpty(queue)){
+        printf("General Blocked queue is empty\n");
+        return;
+    }
+    int removed = -1;
+    for(int i = 0; i <= queue->rear; i++){
+        if(queue->queue[i] == unblocked){
+            // or check if processId's are equal, if something goes wrong
+            removed = i;
+        }
+    }
+    int id = queue->queue[removed]->pcb->processID;
+    printf("dequeue process %d\n", id);
+    for(int i = removed; i < queue->rear; i++){
+        queue->queue[i] = queue->queue[i+1];
+    }
+    queue->rear--;
+
+    printBlocked(queue);
+}
+
 
 #endif //OPERATING_SYSTEM_GENERALBLOCKEDQUEUE_H

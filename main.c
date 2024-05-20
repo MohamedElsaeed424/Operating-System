@@ -30,11 +30,11 @@ char* itoaa(int num) {
 
 enum state execute(Process *process){
     int lowerBound = process->pcb->memoryLowerBoundary;
-    char copy[100];
+    char copy[100]; // Note: important for strtok because strtok modifies string given
     strcpy(copy, memory->words[process->pcb->pc].value);
     incPC(process->pcb, memory);
     process->remaining_time--;
-
+    printf("process %d is currently executing: %s\n", process->pcb->processID, copy);
 
     char* token = strtok(copy, " ");
     if(strcmp(token, "print") == 0){
@@ -161,7 +161,7 @@ enum state execute(Process *process){
     return Success;
 }
 
-void loadAndExecuteProgram(const char* filePath, int id) {
+void loadAndEnqueueProgram(const char* filePath, int id) {
     PCB* pcb = (PCB*)malloc(sizeof(PCB))  ;
     Process* process = (Process*)malloc(sizeof(Process))  ;
     if (pcb == NULL || process == NULL) {
@@ -185,6 +185,7 @@ void loadAndExecuteProgram(const char* filePath, int id) {
     addWord(memory , "" ,"0");
     loadProgramFile(memory,memory->count, filePath);
     enqueueML(0, process);
+
 //    while(process->pcb->pc <= process->pcb->memoryUpperBoundary)
 //        execute(process);
 //    free(pcb);
@@ -204,7 +205,6 @@ void terminate(){
 }
 int main() {
     init();
-    // TODO: Use arrival times
     int arrival_time1, arrival_time2, arrival_time3;
 
     printf("Arrival time 1:");
@@ -217,54 +217,64 @@ int main() {
     scanf("%d", &arrival_time3);
     int min = arrival_time1 <= arrival_time2? arrival_time1: arrival_time2;
     min = min <= arrival_time3? min : arrival_time3;
-//    loadAndExecuteProgram("All_Programs/Program_1");
-//    loadAndExecuteProgram("All_Programs/Program_2");
-//    loadAndExecuteProgram("All_Programs/Program_3");
+//    loadAndEnqueueProgram("All_Programs/Program_1");
+//    loadAndEnqueueProgram("All_Programs/Program_2");
+//    loadAndEnqueueProgram("All_Programs/Program_3");
     int clock = min;
     Process *curr = NULL;
+    bool blocked = false;
     do{
+        printf("clock: %d\n", clock);
         if(clock == arrival_time1)
-            loadAndExecuteProgram("All_Programs/Program_1", 1);
+            loadAndEnqueueProgram("All_Programs/Program_1", 1);
         if(clock == arrival_time2)
-            loadAndExecuteProgram("All_Programs/Program_2", 2);
+            loadAndEnqueueProgram("All_Programs/Program_2", 2);
         if(clock == arrival_time3)
-            loadAndExecuteProgram("All_Programs/Program_3", 3);
+            loadAndEnqueueProgram("All_Programs/Program_3", 3);
+        // if there was a process running, and it isn't still running
+        if(curr != NULL && !(curr->remaining_time > 0 && !blocked)){
+        // if last running process was blocked put it in blocked queue
+            if(blocked){
+                changeState(curr->pcb, memory, "Blocked");
+                enqueueBlocked(&blockedQueue, curr);
+            }
+            else{
+                // else enqueue in ready queue
+                changeState(curr->pcb, memory, "Ready");
+                enqueueML(curr->pcb->currentPriority-1, curr);
+            }
+        }
+
+
         if(curr == NULL || strcmp(curr->pcb->processState, "Running") != 0)
             curr = dequeueML(memory);
-        bool blocked = false;
+
+        blocked = false;
         //Execution of process
-        printf("clock: %d\n", clock);
-        printf("Current process: %d\n", curr->pcb->processID);
+        printf("Current running process: %d\n", curr->pcb->processID);
         int state = execute(curr);
+        blocked = state == Blocked;
+
         clock++;
-        if(state == Blocked)
-            blocked = true;
 
         // if process finished free it and don't enqueue
         if(curr->pcb->pc > curr->pcb->memoryUpperBoundary){
+            changeState(curr->pcb, memory, "Finished");
+            printf("process %d has finished everything\n", curr->pcb->processID);
             free(curr->pcb);
             free(curr);
             curr = NULL;
+            printMemory(memory);
             continue;
         }
-        // still working
-        if(curr->remaining_time > 0 && !blocked)
-            continue;
+
 
         // if quantum was finished
         if(curr->remaining_time <= 0){
             incPriority(curr->pcb, memory);
         }
-        // if it is blocked put it in blocked queue
-        if(blocked){
-            changeState(curr->pcb, memory, "Blocked");
-            enqueueBlocked(&blockedQueue, curr);
-        }
-        else{
-        // else enqueue in ready queue
-            changeState(curr->pcb, memory, "Ready");
-            enqueueML(curr->pcb->currentPriority-1, curr);
-        }
+
+        printMemory(memory);
 
     }while(!isAllEmpty() || (curr != NULL && curr->remaining_time > 0) || clock <= arrival_time1 || clock <= arrival_time2 || clock <= arrival_time3);
 

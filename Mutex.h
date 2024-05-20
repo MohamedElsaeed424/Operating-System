@@ -34,13 +34,19 @@ int isLockQueueEmpty(LockQueue* queues) {
 int isLockQueueFull(LockQueue* queues) {
     return queues->rear+1 == queues->capacity;
 }
+void printMutexQ(MUTEX *m){
+    printf("Mutex %s ownerID: %d\n", m->resourceName, m->ownerID);
+    for(int i = 0; i<=m->queue.rear; i++){
+        printf("%d ", m->queue.queue[i]->pcb->processID);
+    }
+    printf("\n");
+}
 void enqueueLock(LockQueue *queue, Process * process) {
     if(isLockQueueFull(queue)){
         printf("Queue is Full\n");
         return;
     }
     queue->queue[++queue->rear] = process;
-
 }
 
 Process* dequeueLock(LockQueue *queue) {
@@ -59,13 +65,7 @@ Process* dequeueLock(LockQueue *queue) {
     queue->rear--;
     return process;
 }
-void printMutexQ(MUTEX *m){
-    printf("Mutex %s ownerID: %d\n", m->resourceName, m->ownerID);
-    for(int i = 0; i<=m->queue.rear; i++){
-        printf("%d ", m->queue.queue[i]->pcb->processID);
-    }
-    printf("\n");
-}
+
 enum state semWait(MUTEX *m , Process * p) {
     if (m->value == one) {
         m->ownerID = p->pcb->processID;
@@ -73,6 +73,7 @@ enum state semWait(MUTEX *m , Process * p) {
         return Success;
     }
     enqueueLock(&m->queue,p);
+    printMutexQ(m);
     return Blocked;
 }
 Process *semSignal(MUTEX *m , Process* p) {
@@ -85,6 +86,7 @@ Process *semSignal(MUTEX *m , Process* p) {
         else {
             Process * proc = dequeueLock(&m->queue);
             m->ownerID = proc->pcb->processID;
+            printMutexQ(m);
             return proc;
         }
     }
