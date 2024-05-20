@@ -34,7 +34,7 @@ enum state execute(Process *process){
     strcpy(copy, memory->words[process->pcb->pc].value);
     incPC(process->pcb, memory);
     process->remaining_time--;
-    printf("process %d is currently executing: %s\n", process->pcb->processID, copy);
+    printf("🔨process %d is currently executing: %s\n🔨", process->pcb->processID, copy);
 
     char* token = strtok(copy, " ");
     if(strcmp(token, "print") == 0){
@@ -225,13 +225,16 @@ int main() {
     Process *curr = NULL;
     bool blocked = false;
     do{
-        printf("clock: %d\n", clock);
+        printf("\n");
+        printf("-----⏰⏱️🕧clock: %d⏲️🕰️🕛-----\n", clock);
+        printf("\n");
         if(clock == arrival_time1)
             loadAndEnqueueProgram("All_Programs/Program_1", 1);
         if(clock == arrival_time2)
             loadAndEnqueueProgram("All_Programs/Program_2", 2);
         if(clock == arrival_time3)
             loadAndEnqueueProgram("All_Programs/Program_3", 3);
+
         // if there was a process running, and it isn't still running
         if(curr != NULL && !(curr->remaining_time > 0 && !blocked)){
         // if last running process was blocked put it in blocked queue
@@ -256,8 +259,10 @@ int main() {
 
         blocked = false;
         //Execution of process
-        printf("Current running process: %d\n", curr->pcb->processID);
+        printf("\n");
+        printf("🏃‍♂️Current running process: %d🏃\n", curr->pcb->processID);
         int state = execute(curr);
+        printf("\n");
         blocked = state == Blocked;
 
         clock++;
